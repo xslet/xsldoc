@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project name="xsldoc" basedir="." default="build">
+ <property name="app.name" value="${ant.project.name}"/>
+ <property name="dep.saxon.version" value="9-9-1-5J"/>
+ <property name="dep.tomcat.version" value="9.0.27"/>
+
+ <property name="dir.src"   location="${basedir}/src"/>
+ <property name="dir.dist"  location="${basedir}/dist"/>
+ <property name="dir.test"  location="${basedir}/test"/>
+ <property name="dir.docs"  location="${basedir}/docs"/>
+ <property name="dir.build" location="${basedir}/build_aux"/>
+
+ <property name="dir.src.xsl" location="${dir.src}/xsl"/>
+ <property name="dir.src.css" location="${dir.src}/scss"/>
+ <property name="dir.src.js"  location="${dir.src}/js"/>
+
+ <property name="dir.build.dl"  location="${dir.build}/downloads"/>
+ <property name="dir.build.lib" location="${dir.build}/lib"/>
+ <property name="dir.build.bin" location="${dir.build}/bin"/>
+ <property name="dir.build.js"  location="${dir.build}/js"/>
+ <property name="dir.build.xsl" location="${dir.build}/xsl"/>
+
+ <property name="pkg.saxon" value="SaxonHE${dep.saxon.version}"/>
+ <property name="dir.saxon" location="${dir.build.lib}/${pkg.saxon}"/>
+ <property name="pkg.tomcat" value="apache-tomcat-${dep.tomcat.version}"/>
+ <property name="dir.tomcat" location="${dir.build.bin}/${pkg.tomcat}"/>
+ <property name="dir.deploy" location="${dir.tomcat}/webapps/${app.name}"/>
+
+ <property name="file.app.xsl" value="${app.name}.xsl"/>
+
+ <condition property="npm.cmd" value="cmd" else="npm">
+  <os family="windows"/>
+ </condition>
+ <condition property="npm.arg" value="/c npm" else="">
+  <os family="windows"/>
+ </condition>
+
+ <target name="build">
+  <antcall target="clean"/>
+  <antcall target="merge"/>
+  <antcall target="build-scss"/>
+  <antcall target="build-js"/>
+  <antcall target="deploy"/>
+ </target>
+
+ <target name="clean">
+  <delete>
+   <fileset dir="${dir.dist}" includes="**/*"/>
+   <fileset dir="${dir.deploy}" includes="**/*"/>
+   <fileset dir="${dir.docs}/test" includes="**/*"/>
+   <fileset dir="${dir.docs}/api" includes="**/*"/>
+  </delete>
+  <exec executable="find" os="Mac OS X">
+   <arg line=". -name .DS_Store -delete"/>
+  </exec>
+ </target>
+
+ <target name="merge">
+  <antcall target="merge-src-xsl"/>
+  <antcall target="merge-test-xsl"/>
+  <antcall target="merge-doc-xsl"/>
+ </target>
+
+ <target name="merge-src-xsl">
+  <path id="extjars">
+   <fileset dir="${dir.build.lib}">
+    <include name="**/*.jar"/>
+   </fileset>
+  </path>
+  <java classname="net.sf.saxon.Transform">
+   <arg line="-o:${dir.dist}"/>
+   <arg line="-s:${dir.src.xsl}"/>
+   <arg line="-xsl:${dir.build.xsl}/merge-for-dist.xsl"/>
+   <arg line="-strip:all"/>
+   <classpath refid="extjars"/>
+  </java>
+ </target>
+
+ <target name="merge-test-xsl">
+  <path id="extjars">
+   <fileset dir="${dir.build.lib}">
+    <include name="**/*.jar"/>
+   </fileset>
+  </path>
+  <java classname="net.sf.saxon.Transform">
+   <arg line="-o:${dir.test}"/>
+   <arg line="-s:${dir.src.xsl}"/>
+   <arg line="-xsl:${dir.build.xsl}/merge-for-test.xsl"/>
+   <arg line="-strip:all"/>
+   <classpath refid="extjars"/>
+  </java>
+ </target>
+
+ <target name="merge-doc-xsl">
+  <path id="extjars">
+   <fileset dir="${dir.build.lib}">
+    <include name="**/*.jar"/>
+   </fileset>
+  </path>
+  <java classname="net.sf.saxon.Transform">
+   <arg line="-o:${dir.docs}"/>
+   <arg line="-s:${dir.src.xsl}"/>
+   <arg line="-xsl:${dir.build.xsl}/merge-for-doc.xsl"/>
+   <arg line="-strip:all"/>
+   <classpath refid="extjars"/>
+  </java>
+ </target>
+
+ <target name="watch">
+  <retry retrycount="1000000">
+   <antcall target="wait-for-update"/>
+  </retry>
+ </target>
+
+ <target name="build-scss">
+  <property name="prefix" value="${dir.src.js}"/>
+  <exec executable="${npm.cmd}">
+   <arg line="${npm.arg}"/>
+   <arg line="run sass:build"/>
+   <arg line="--prefix ${prefix}"/>
+  </exec>
+ </target>
+
+ <target name="build-js">
+  <property name="prefix" value="${dir.src.js}"/>
+  <exec executable="${npm.cmd}">
+   <arg line="${npm.arg}"/>
+   <arg line="run js:build"/>
+   <arg line="--prefix ${prefix}"/>
+  </exec>
+ </target>
+
+ <target name="wait-for-update">
+  <waitfor>
+   <not>
+    <uptodate targetfile="${dir.dist}/${file.app.xsl}">
+     <srcfiles dir="${dir.src}" includes="**/*"/>
+     <srcfiles dir="${dir.test}" includes="**/*"/>
+    </uptodate>
+   </not>
+  </waitfor>
+  <antcall target="build"/>
+  <touch file="${dir.dist}/${file.app.xsl}"/>
+  <fail/>
+ </target>
+
+ <target name="setup">
+  <mkdir dir="${dir.src.xsl}"/>
+  <mkdir dir="${dir.src.css}"/>
+  <mkdir dir="${dir.src.js}"/>
+  <mkdir dir="${dir.dist}"/>
+  <mkdir dir="${dir.docs}"/>
+  <mkdir dir="${dir.docs}/test"/>
+  <mkdir dir="${dir.docs}/api"/>
+  <mkdir dir="${dir.test}"/>
+  <mkdir dir="${dir.build.dl}"/>
+  <mkdir dir="${dir.build.lib}"/>
+  <mkdir dir="${dir.build.bin}"/>
+  <antcall target="get-saxon"/>
+  <antcall target="get-tomcat"/>
+  <antcall target="put-jsenv"/>
+  <mkdir dir="${dir.deploy}"/>
+  <touch file="${dir.src.css}/${ant.project.name}.scss"/>
+  <touch file="${dir.src.js}/index.js"/>
+ </target>
+
+ <target name="get-saxon">
+  <property name="url" value="https://sourceforge.net/projects/saxon/files/Saxon-HE/9.9/${pkg.saxon}.zip/download"/>
+  <property name="zip" location="${dir.build.dl}/${pkg.saxon}.zip"/>
+  <property name="dir.unzip" location="${dir.saxon}"/>
+  <get src="${url}" dest="${zip}"/>
+  <unzip src="${zip}" dest="${dir.unzip}"/>
+ </target>
+
+ <target name="get-tomcat">
+  <property name="url" value="https://archive.apache.org/dist/tomcat/tomcat-9/v${dep.tomcat.version}/bin/${pkg.tomcat}.zip"/>
+  <property name="zip" location="${dir.build.dl}/${pkg.tomcat}.zip"/>
+  <property name="dir.unzip" location="${dir.build.bin}"/>
+  <get src="${url}" dest="${zip}"/>
+  <unzip src="${zip}" dest="${dir.unzip}"/>
+  <chmod perm="ugo+rx" dir="${dir.tomcat}/bin" includes="**/*.sh"/>
+ </target>
+
+ <target name="start">
+  <condition property="cmd" value="startup.bat" else="startup.sh">
+   <os family="windows"/>
+  </condition>
+  <exec executable="${dir.tomcat}/bin/${cmd}"/>
+ </target>
+
+ <target name="stop">
+  <condition property="cmd" value="shutdown.bat" else="shutdown.sh">
+   <os family="windows"/>
+  </condition>
+  <exec executable="${dir.tomcat}/bin/${cmd}"/>
+ </target>
+
+ <target name="deploy">
+  <copy todir="${dir.test}">
+   <fileset dir="${dir.build.xsl}/xslutil"/>
+  </copy>
+  <copy todir="${dir.docs}/test">
+   <fileset dir="${dir.test}"/>
+  </copy>
+  <copy todir="${dir.docs}/api/xsldoc">
+   <fileset dir="${dir.dist}"/>
+   <fileset dir="${dir.build.xsl}/xslutil"/>
+  </copy>
+  <copy todir="${dir.deploy}">
+   <fileset dir="${dir.docs}"/>
+  </copy>
+ </target>
+
+ <target name="put-jsenv">
+  <copy todir="${dir.src.js}">
+   <fileset dir="${dir.build.js}"/>
+  </copy>
+  <antcall target="npm-install"/>
+ </target>
+
+ <target name="npm-install">
+  <property name="prefix" value="${dir.src.js}"/>
+  <exec executable="${npm.cmd}">
+   <arg line="${npm.arg}"/>
+   <arg line="install"/>
+   <arg line="--prefix ${prefix}"/>
+  </exec>
+ </target>
+
+ <target name="help">
+  <echo><![CDATA[
+ant <target>
+
+TARGET)
+  setup  : Make directories and download modules used for build.
+  build  : Execute `clean`, `merge` and `deploy` tasks.
+  clean  : Clean files in `dist` directory.
+  merge  : Merge XSL files into a distributable file.
+  deploy : Deploy distributable files and test files to Tomcat.
+  watch  : Watch source files updated, then deploy.
+  start  : Start tomcat.
+  stop   : Stop tomcat.
+]]></echo>
+ </target>
+
+</project>
