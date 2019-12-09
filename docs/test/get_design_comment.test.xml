@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="application/xml" href="unit.test.xsl"?>
+
+<unit-test title="The unit test of get_design_comment">
+
+  <assert-equal name="get_design_comment">
+   <only_one_line/>
+   <expect></expect>
+  </assert-equal>
+
+  <!-- A comment -->
+  <assert-equal name="get_design_comment">
+   <only_one_line/>
+   <expect></expect>
+  </assert-equal>
+
+  <!--** A comment -->
+  <assert-equal name="get_design_comment">
+   <only_one_line/>
+   <expect>A comment</expect>
+  </assert-equal>
+
+  <!--
+   ** A comment
+  -->
+  <assert-equal name="get_design_comment">
+   <only_one_line/>
+   <expect>A comment</expect>
+  </assert-equal>
+
+  <!--
+   ** Multiple
+   ** line
+   ** comments
+  -->
+  <assert-equal name="get_design_comment">
+   <only_one_line/>
+   <expect>Multiplelinecomments</expect>
+  </assert-equal>
+
+  <!--**
+   Multiple
+   line
+   comments
+  -->
+  <assert-equal name="get_design_comment">
+   <only_one_line/>
+   <expect>Multiplelinecomments</expect>
+  </assert-equal>
+
+</unit-test>

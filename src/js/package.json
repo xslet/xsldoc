@@ -1,0 +1,33 @@
+{
+  "name": "xsldoc",
+  "version": "0.1.0",
+  "description": "xsldoc build environment with Node.js",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "sass:build": "node-sass ../../src/scss/xsldoc.scss ../../dist/xsldoc.css",
+    "sass:watch": "node-sass --watch ../../src/scss/xsldoc.scss ../../dist/xsldoc.css",
+    "js:build": "browserify index.js --standalone xsldoc -o ../../dist/xsldoc.js && cd ../../dist && uglifyjs xsldoc.js --compress --mangle -o xsldoc.min.js --source-map url=xsldoc.min.js.map"
+  },
+  "keywords": [
+    "xsldoc",
+    "api",
+    "xsl",
+    "xslet"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xslet/xsldoc.git"
+  },
+  "author": "Takayuki Sato",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^16.5.0",
+    "eslint": "^6.4.0",
+    "node-sass": "^4.12.0",
+    "uglify-js": "^3.6.0"
+  },
+  "dependencies": {
+    "@xslet/platform": "^0.2.1"
+  }
+}

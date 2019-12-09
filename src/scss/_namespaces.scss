@@ -1,0 +1,19 @@
+section.namespaces {
+
+  & > div.namespace-list {
+
+    & > div.namespace-item {
+
+      & > span.namespace-prefix {
+        color: $title-color;
+      }
+
+      & > span.namespace-prefix:after {
+        content: '=';
+      }
+
+      & > span.namespace-uri {
+      }
+    }
+  }
+}

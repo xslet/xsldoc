@@ -1,0 +1,37 @@
+header {
+  border-bottom: $horz-line-style;
+}
+
+footer {
+  border-top: $horz-line-style;
+}
+
+header, footer {
+  margin: 0rem 0.5rem;
+  padding: 0.5rem 0rem;
+  vertical-align: middle;
+
+  & > div.system-props {
+
+    & > span.system-props-title {
+      color: $title-color;
+    }
+
+    & > span.system-prop-list {
+
+      & > span.system-prop-item {
+        margin-left: 0.5rem;
+
+        & > span.system-prop-name {
+          color: $title-color;
+        }
+        & > span.system-prop-name:after {
+          content: '=';
+        }
+
+        & > span.system-prop-value {
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+html {
+  font-size: 14px; }
+
+body {
+  font-family: "Lucida grande", Arial, serif;
+  color: #333;
+  padding: 0rem;
+  margin: 0rem; }
+
+main {
+  padding: 0rem 1rem; }
+  main > h1 {
+    color: #38c; }
+  main > div.page-desc {
+    color: #666; }
+  main > section > h2 {
+    background-color: #adf;
+    padding: 0.2rem 0.5rem; }
+  main > section > div.section-body {
+    margin-left: 0.5rem; }
+
+.comment {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  color: #999; }
+
+.params {
+  margin-left: 1rem;
+  margin-bottom: 1rem; }
+
+header {
+  border-bottom: solid 2px #999; }
+
+footer {
+  border-top: solid 2px #999; }
+
+header, footer {
+  margin: 0rem 0.5rem;
+  padding: 0.5rem 0rem;
+  vertical-align: middle; }
+  header > div.system-props > span.system-props-title, footer > div.system-props > span.system-props-title {
+    color: #68c; }
+  header > div.system-props > span.system-prop-list > span.system-prop-item, footer > div.system-props > span.system-prop-list > span.system-prop-item {
+    margin-left: 0.5rem; }
+    header > div.system-props > span.system-prop-list > span.system-prop-item > span.system-prop-name, footer > div.system-props > span.system-prop-list > span.system-prop-item > span.system-prop-name {
+      color: #68c; }
+    header > div.system-props > span.system-prop-list > span.system-prop-item > span.system-prop-name:after, footer > div.system-props > span.system-prop-list > span.system-prop-item > span.system-prop-name:after {
+      content: '='; }
+
+section.namespaces > div.namespace-list > div.namespace-item > span.namespace-prefix {
+  color: #68c; }
+
+section.namespaces > div.namespace-list > div.namespace-item > span.namespace-prefix:after {
+  content: '='; }
+
+section.elements > div.element-list > div.element-item > div.element-param-list:before {
+  content: 'Parameter:';
+  font-size: 0.9rem;
+  color: #68c; }
+
+section.elements > div.element-list > div.element-item > div.element-param-list > div.element-param-item {
+  padding-left: 1rem;
+  display: flex; }
+  section.elements > div.element-list > div.element-item > div.element-param-list > div.element-param-item > div.element-param-desc:before {
+    content: '-';
+    margin-left: 0.3rem; }
+  section.elements > div.element-list > div.element-item > div.element-param-list > div.element-param-item > div.element-param-desc {
+    margin-left: 0.3rem;
+    margin-bottom: 0rem; }
+
+section.functions > div.function-list > div.function-item > div.function-param-list:before {
+  content: 'Parameters:';
+  font-size: 0.9rem;
+  color: #68c; }
+
+section.functions > div.function-list > div.function-item > div.function-param-list > div.function-param-item {
+  padding-left: 1rem;
+  display: flex; }
+  section.functions > div.function-list > div.function-item > div.function-param-list > div.function-param-item > div.function-param-desc:before {
+    content: '-';
+    margin-left: 0.3rem;
+    margin-right: 0.3rem; }
+  section.functions > div.function-list > div.function-item > div.function-param-list > div.function-param-item > div.function-param-desc {
+    margin-left: 0rem;
+    margin-bottom: 0rem; }

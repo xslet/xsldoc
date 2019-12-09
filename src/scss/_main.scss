@@ -1,0 +1,44 @@
+html {
+  font-size: $font-size;
+}
+
+body {
+  font-family: $font-family;
+  color: $font-color;
+  padding: 0rem;
+  margin: 0rem;
+}
+
+main {
+  padding: 0rem 1rem;
+
+  & > h1 {
+    color: $page-title-color;
+  }
+
+  & > div.page-desc {
+    color: $page-desc-color;
+  }
+
+  & > section {
+    & > h2 {
+      background-color: $title-bgcolor;
+      padding: 0.2rem 0.5rem;
+    }
+
+    & > div.section-body {
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+.comment {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  color: $comment-color;
+}
+
+.params {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
