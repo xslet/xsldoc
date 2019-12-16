@@ -24,7 +24,7 @@
   <xsl:result-document href="{$destfile}">
    <xsl:processing-instruction name="xml-stylesheet">type="application/xml" href="xsldoc/xsldoc.xsl"</xsl:processing-instruction>
 
-   <xsl:for-each select="collection(concat($srcdir, '?select=*.xsl'))">
+   <xsl:for-each select="collection(concat($srcdir, '?select=_summary.xsl'))">
     <xsl:comment><xsl:value-of select="xsl:stylesheet/preceding-sibling::comment()[1]"/></xsl:comment>
    </xsl:for-each>
 
