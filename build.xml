@@ -57,10 +57,13 @@
  </target>
 
  <target name="merge">
-  <delete file="${dir.src}/xsl/lib/xslutil.xsl"/>
+  <delete>
+   <fileset dir="${dir.src.xsl}/ext" includes="**/*"/>
+  </delete>
   <antcall target="merge-doc-xsl"/>
-  <copy todir="${dir.src}/xsl/lib"
-    file="${dir.build.xsl}/xslutil/xslutil.xsl"/>
+  <copy todir="${dir.src.xsl}/ext">
+   <fileset dir="${dir.build.xsl}/xslutil"/>
+  </copy>
   <antcall target="merge-src-xsl"/>
   <antcall target="merge-test-xsl"/>
  </target>
@@ -150,6 +153,8 @@
 
  <target name="setup">
   <mkdir dir="${dir.src.xsl}"/>
+  <mkdir dir="${dir.src.xsl}/lib"/>
+  <mkdir dir="${dir.src.xsl}/ext"/>
   <mkdir dir="${dir.src.css}"/>
   <mkdir dir="${dir.src.js}"/>
   <mkdir dir="${dir.dist}"/>

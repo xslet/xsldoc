@@ -13,6 +13,7 @@
    <xsl:with-param name="destfile" select="'api/xsldoc.xml'"/>
    <xsl:with-param name="srcdir" select="'../../src/xsl'"/>
    <xsl:with-param name="libdir" select="'../../src/xsl/lib'"/>
+   <xsl:with-param name="extdir" select="'../../src/xsl/ext'"/>
   </xsl:call-template>
  </xsl:template>
 
@@ -20,6 +21,7 @@
   <xsl:param name="destfile"/>
   <xsl:param name="srcdir"/>
   <xsl:param name="libdir"/>
+  <xsl:param name="extdir"/>
 
   <xsl:result-document href="{$destfile}">
    <xsl:processing-instruction name="xml-stylesheet">type="application/xml" href="xsldoc/xsldoc.xsl"</xsl:processing-instruction>
@@ -39,6 +41,10 @@
        select="xsl:stylesheet/xsl:import|xsl:stylesheet/comment()[following-sibling::*[1]/name() = 'xsl:import']">
       <xsl:merge-key select="href"/>
      </xsl:merge-source>
+     <xsl:merge-source for-each-source="uri-collection($extdir)"
+       select="xsl:stylesheet/xsl:import|xsl:stylesheet/comment()[following-sibling::*[1]/name() = 'xsl:import']">
+      <xsl:merge-key select="href"/>
+     </xsl:merge-source>
      <xsl:merge-action>
       <xsl:copy-of select="current-merge-group()"/>
      </xsl:merge-action>
@@ -50,6 +56,10 @@
       <xsl:merge-key select="name"/>
      </xsl:merge-source>
      <xsl:merge-source for-each-source="uri-collection($libdir)"
+       select="xsl:stylesheet/xsl:param|xsl:stylesheet/comment()[following-sibling::*[1]/name() = 'xsl:param']">
+      <xsl:merge-key select="name"/>
+     </xsl:merge-source>
+     <xsl:merge-source for-each-source="uri-collection($extdir)"
        select="xsl:stylesheet/xsl:param|xsl:stylesheet/comment()[following-sibling::*[1]/name() = 'xsl:param']">
       <xsl:merge-key select="name"/>
      </xsl:merge-source>
@@ -65,6 +75,11 @@
       <xsl:merge-key select="mode"/>
      </xsl:merge-source>
      <xsl:merge-source for-each-source="uri-collection($libdir)"
+       select="xsl:stylesheet/xsl:template|xsl:stylesheet/comment()[following-sibling::*[1]/name() = 'xsl:template']">
+      <xsl:merge-key select="name|match"/>
+      <xsl:merge-key select="mode"/>
+     </xsl:merge-source>
+     <xsl:merge-source for-each-source="uri-collection($extdir)"
        select="xsl:stylesheet/xsl:template|xsl:stylesheet/comment()[following-sibling::*[1]/name() = 'xsl:template']">
       <xsl:merge-key select="name|match"/>
       <xsl:merge-key select="mode"/>

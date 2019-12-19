@@ -11,19 +11,25 @@
  <xsl:template match="/">
   <xsl:call-template name="merge">
    <xsl:with-param name="destfile" select="'unit.test.xsl'"/>
-   <xsl:with-param name="srcdir" select="'../../src/xsl/lib'"/>
+   <xsl:with-param name="libdir" select="'../../src/xsl/lib'"/>
+   <xsl:with-param name="extdir" select="'../../src/xsl/ext'"/>
   </xsl:call-template>
  </xsl:template>
 
  <xsl:template name="merge">
   <xsl:param name="destfile"/>
-  <xsl:param name="srcdir"/>
+  <xsl:param name="libdir"/>
+  <xsl:param name="extdir"/>
 
   <xsl:result-document href="{$destfile}">
    <xsx:stylesheet version="1.0">
 
     <xsl:merge>
-     <xsl:merge-source for-each-source="uri-collection($srcdir)"
+     <xsl:merge-source for-each-source="uri-collection($libdir)"
+       select="xsl:stylesheet/xsl:import">
+      <xsl:merge-key select="href"/>
+     </xsl:merge-source>
+     <xsl:merge-source for-each-source="uri-collection($extdir)"
        select="xsl:stylesheet/xsl:import">
       <xsl:merge-key select="href"/>
      </xsl:merge-source>
@@ -35,7 +41,11 @@
     </xsl:merge>
 
     <xsl:merge>
-     <xsl:merge-source for-each-source="uri-collection($srcdir)"
+     <xsl:merge-source for-each-source="uri-collection($libdir)"
+       select="xsl:stylesheet/xsl:param">
+      <xsl:merge-key select="name"/>
+     </xsl:merge-source>
+     <xsl:merge-source for-each-source="uri-collection($extdir)"
        select="xsl:stylesheet/xsl:param">
       <xsl:merge-key select="name"/>
      </xsl:merge-source>
@@ -47,7 +57,12 @@
     </xsl:merge>
 
     <xsl:merge>
-     <xsl:merge-source for-each-source="uri-collection($srcdir)"
+     <xsl:merge-source for-each-source="uri-collection($libdir)"
+       select="xsl:stylesheet/xsl:template">
+      <xsl:merge-key select="name|match"/>
+      <xsl:merge-key select="mode"/>
+     </xsl:merge-source>
+     <xsl:merge-source for-each-source="uri-collection($extdir)"
        select="xsl:stylesheet/xsl:template">
       <xsl:merge-key select="name|match"/>
       <xsl:merge-key select="mode"/>
