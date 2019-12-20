@@ -36,6 +36,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title></title>
     <script src="{concat($_xsl_dir, '/xsldoc.js')}"></script>
+    <script>
+     window.addEventListener('DOMContentLoaded', xsldoc.setupPageTitle);
+    </script>
     <link rel="stylesheet" href="{concat($_xsl_dir, '/xsldoc.css')}"/>
    </head>
    <body>
@@ -93,7 +96,6 @@
  -->
  <xsl:template name="print_page_title">
   <h1></h1>
-  <script>xsldoc.setupPageTitle()</script>
  </xsl:template>
 
  <!--**
