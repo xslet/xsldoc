@@ -5,6 +5,27 @@
  xmlns:xsx="dummy-ns" exclude-result-prefixes="xsx"
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+ <xsl:param name="product">
+  <xsl:for-each select="document('../../build.xml', /)/project">
+   <xsl:value-of select="property[@name='product']/@value"/>
+  </xsl:for-each>
+ </xsl:param>
+ <xsl:param name="version">
+  <xsl:for-each select="document('../../build.xml', /)/project">
+   <xsl:value-of select="property[@name='version']/@value"/>
+  </xsl:for-each>
+ </xsl:param>
+ <xsl:param name="copyright">
+  <xsl:for-each select="document('../../build.xml', /)/project">
+   <xsl:value-of select="property[@name='copyright']/@value"/>
+  </xsl:for-each>
+ </xsl:param>
+ <xsl:param name="license">
+  <xsl:for-each select="document('../../build.xml', /)/project">
+   <xsl:value-of select="property[@name='license']/@value"/>
+  </xsl:for-each>
+ </xsl:param>
+
  <xsl:strip-space elements="*"/>
  <xsl:namespace-alias result-prefix="xsl" stylesheet-prefix="xsx"/>
 
@@ -24,6 +45,19 @@
   <xsl:param name="extdir"/>
 
   <xsl:result-document href="{$destfile}">
+
+   <xsl:comment>
+    <xsl:text> </xsl:text>
+    <xsl:value-of select="$product"/>
+    <xsl:text> v</xsl:text>
+    <xsl:value-of select="$version"/>
+    <xsl:text>. </xsl:text>
+    <xsl:value-of select="$copyright"/>
+    <xsl:text>. </xsl:text>
+    <xsl:value-of select="$license"/>
+    <xsl:text> </xsl:text>
+   </xsl:comment>
+
    <xsx:stylesheet version="1.0">
 
     <xsl:merge>

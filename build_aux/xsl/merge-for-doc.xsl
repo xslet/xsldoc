@@ -5,6 +5,27 @@
  xmlns:xsx="dummy-ns" exclude-result-prefixes="xsx"
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+ <xsl:param name="product">
+  <xsl:for-each select="document('../../build.xml', /)/project">
+   <xsl:value-of select="property[@name='product']/@value"/>
+  </xsl:for-each>
+ </xsl:param>
+ <xsl:param name="version">
+  <xsl:for-each select="document('../../build.xml', /)/project">
+   <xsl:value-of select="property[@name='version']/@value"/>
+  </xsl:for-each>
+ </xsl:param>
+ <xsl:param name="copyright">
+  <xsl:for-each select="document('../../build.xml', /)/project">
+   <xsl:value-of select="property[@name='copyright']/@value"/>
+  </xsl:for-each>
+ </xsl:param>
+ <xsl:param name="license">
+  <xsl:for-each select="document('../../build.xml', /)/project">
+   <xsl:value-of select="property[@name='license']/@value"/>
+  </xsl:for-each>
+ </xsl:param>
+
  <xsl:strip-space elements="*"/>
  <xsl:namespace-alias result-prefix="xsl" stylesheet-prefix="xsx"/>
 
@@ -26,9 +47,27 @@
   <xsl:result-document href="{$destfile}">
    <xsl:processing-instruction name="xml-stylesheet">type="application/xml" href="xsldoc/xsldoc.xsl"</xsl:processing-instruction>
 
-   <xsl:for-each select="collection(concat($srcdir, '?select=_summary.xsl'))">
-    <xsl:comment><xsl:value-of select="xsl:stylesheet/preceding-sibling::comment()[1]"/></xsl:comment>
-   </xsl:for-each>
+   <xsl:comment><!-- The file status comment -->
+    <xsl:text> </xsl:text>
+    <xsl:value-of select="$product"/>
+    <xsl:text> v</xsl:text>
+    <xsl:value-of select="$version"/>
+    <xsl:text>. </xsl:text>
+    <xsl:value-of select="$copyright"/>
+    <xsl:text>. </xsl:text>
+    <xsl:value-of select="$license"/>
+    <xsl:text> </xsl:text>
+   </xsl:comment>
+
+   <xsl:comment><!-- The file summary comment -->
+    <xsl:value-of select="concat('** ', $product, ' ver', $version, ' - API Document&#10;')"/>
+    <xsl:for-each select="collection(concat($srcdir, '?select=**.xsl'))">
+     <xsl:value-of select="xsl:stylesheet/preceding-sibling::comment()[1]"/>
+    </xsl:for-each>
+    <xsl:value-of select="'&#10;'"/>
+    <xsl:value-of select="concat('** ', $copyright, '&#10;')"/>
+    <xsl:value-of select="concat('** ', $license, '&#10;')"/>
+   </xsl:comment>
 
    <xsx:stylesheet version="1.0">
 

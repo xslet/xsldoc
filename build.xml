@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <project name="xsldoc" basedir="." default="build">
+ <!-- These properties are used by merge processes -->
+ <property name="product" value="xsldoc.xsl"/>
+ <property name="version" value="0.1"/>
+ <property name="copyright" value="Copyright (C) xslet@github"/>
+ <property name="license" value="MIT License"/>
+
  <property name="app.name" value="${ant.project.name}"/>
  <property name="dep.saxon.version" value="9-9-1-5J"/>
  <property name="dep.tomcat.version" value="9.0.27"/>

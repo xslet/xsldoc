@@ -1,18 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="application/xml" href="xsldoc/xsldoc.xsl"?><!--**
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="application/xml" href="xsldoc/xsldoc.xsl"?><!-- xsldoc.xsl v0.1. Copyright (C) xslet@github. MIT License --><!--** xsldoc.xsl ver0.1 - API Document
+**
  xsldoc is a XSLT applet to print an API document of a XSL file on Web browsers. 
 
  This applet prints the lists of design items of XSLT: namespaces, import files, including files, parameters, elements (matching templates), and functions (named templates). However, this applet regards design items of which the local-name starts with '_' as private items and doesn't print them.
 
  This applet also prints design comments, which are comments that immediately precede these design items and start with `**`.
 
- This file is written in XSLT 1.0.
+ This program is written in XSLT 1.0.
+
+** Copyright (C) xslet@github
+** MIT License
 --><xsl:stylesheet xmlns:ut="https://github.com/xslet/2020/xslutil" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:param name="_xsl_url"><xsl:call-template name="ut:get_xsl_url"/></xsl:param><xsl:param name="_xsl_dir"><xsl:call-template name="ut:get_dir_from_url"><xsl:with-param name="url" select="$_xsl_url"/></xsl:call-template></xsl:param><!--** The prefix of a design comment. (='**') --><xsl:param name="DESIGN_COMMENT_PREFIX">**</xsl:param><xsl:param name="_eol" select="'&#xA;'"/><!--**
   The top level element of a XML stylesheet.
  --><xsl:template match="/xsl:stylesheet"><html><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta http-equiv="X-UA-Compatible" content="ie=edge"/><title/><script src="{concat($_xsl_dir, '/xsldoc.js')}"/><link rel="stylesheet" href="{concat($_xsl_dir, '/xsldoc.css')}"/></head><body><header><xsl:call-template name="print_system_props"/></header><main><xsl:call-template name="print_page_title"/><xsl:call-template name="print_page_comment"/><xsl:call-template name="print_namespaces"/><xsl:call-template name="print_importings"/><xsl:call-template name="print_includings"/><xsl:call-template name="print_parameters"/><xsl:call-template name="print_elements"/><xsl:call-template name="print_functions"/></main><footer><xsl:call-template name="print_system_props"/></footer></body></html></xsl:template><!--**
   Prints system properties with XSLT system-property() function.
  --><xsl:template name="print_system_props"><div class="system-props"><span class="system-props-title">System Properties:</span><span class="system-prop-list"><span class="system-prop-item"><span class="system-prop-name">xsl:vendor</span><span class="system-prop-value"><xsl:value-of select="system-property('xsl:vendor')"/></span></span><span class="system-prop-item"><span class="system-prop-name">xsl:version</span><span class="system-prop-value"><xsl:value-of select="system-property('xsl:version')"/></span></span><span class="system-prop-item"><span class="system-prop-name">xsl:vendor-url</span><span class="system-prop-value"><xsl:value-of select="system-property('xsl:vendor-url')"/></span></span></span></div></xsl:template><!--**
   Prints the XSL file name as the page title.
- --><xsl:template name="print_page_title"><h1/><script>xsldoc.printPageTitle()</script></xsl:template><!--**
+ --><xsl:template name="print_page_title"><h1/><script>xsldoc.setupPageTitle()</script></xsl:template><!--**
   Prints the preceding comment of `xsl:stylesheet` element as the page comment.
  --><xsl:template name="print_page_comment"><div class="comment page-desc"><xsl:call-template name="get_design_comment"/></div></xsl:template><!--**
   Prints namespaces.
