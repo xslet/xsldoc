@@ -1,5 +1,5 @@
 {
-  "name": "xsldoc",
+  "name": "xsldoc-builder",
   "version": "0.1.0",
   "description": "xsldoc build environment with Node.js",
   "main": "index.js",
