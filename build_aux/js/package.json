@@ -7,7 +7,7 @@
     "lint": "eslint .",
     "sass:build": "node-sass ../../src/scss/xsldoc.scss ../../dist/xsldoc.css",
     "sass:watch": "node-sass --watch ../../src/scss/xsldoc.scss ../../dist/xsldoc.css",
-    "js:build": "browserify index.js --standalone xslet -o ../../dist/xsldoc.js && cd ../../dist && uglifyjs xsldoc.js --compress --mangle -o xsldoc.min.js --source-map url=xsldoc.min.js.map"
+    "js:build": "browserify index.js --standalone xsldoc -o ../../dist/xsldoc.js && cd ../../dist && uglifyjs xsldoc.js --compress --mangle -o xsldoc.min.js --source-map url=xsldoc.min.js.map"
   },
   "keywords": [
     "xsldoc",
