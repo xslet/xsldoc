@@ -113,13 +113,42 @@
       <xsl:merge-key select="mode"/>
      </xsl:merge-source>
      <xsl:merge-action>
-      <xsl:copy-of select="current-merge-group()"/>
+      <xsl:for-each select="current-merge-group()">
+       <xsl:choose>
+        <xsl:when test="boolean(@name)">
+         <xsx:template name="{@name}">
+          <xsl:if test="boolean(@mode)">
+           <xsl:attribute name="mode">
+            <xsl:value-of select="@mode"/>
+           </xsl:attribute>
+          </xsl:if>
+          <xsl:apply-templates select="*|text()"/>
+         </xsx:template>
+        </xsl:when>
+        <xsl:when test="boolean(@match)">
+         <xsx:template match="{@match}">
+          <xsl:if test="boolean(@mode)">
+           <xsl:attribute name="mode">
+            <xsl:value-of select="@mode"/>
+           </xsl:attribute>
+          </xsl:if>
+          <xsl:apply-templates select="*|text()"/>
+         </xsx:template>
+        </xsl:when>
+       </xsl:choose>
+      </xsl:for-each>
      </xsl:merge-action>
     </xsl:merge>
 
    </xsx:stylesheet>
 
   </xsl:result-document>
+ </xsl:template>
+
+ <xsl:template match="*|text()|@*">
+  <xsl:copy>
+   <xsl:apply-templates select="*|text()|@*"/>
+  </xsl:copy>
  </xsl:template>
 
 </xsl:stylesheet>
