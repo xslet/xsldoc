@@ -10,6 +10,7 @@
  <property name="app.name" value="${ant.project.name}"/>
  <property name="dep.saxon.version" value="9-9-1-5J"/>
  <property name="dep.tomcat.version" value="9.0.27"/>
+ <property name="dep.xslutil.version" value="0.1.1"/>
 
  <property name="dir.src"   location="${basedir}/src"/>
  <property name="dir.dist"  location="${basedir}/dist"/>
@@ -27,6 +28,8 @@
  <property name="dir.build.js"  location="${dir.build}/js"/>
  <property name="dir.build.xsl" location="${dir.build}/xsl"/>
 
+ <property name="pkg.xslutil" value="xslutil-${dep.xslutil.version}"/>
+ <property name="dir.xslutil" location="${dir.build.lib}/${pkg.xslutil}"/>
  <property name="pkg.saxon" value="SaxonHE${dep.saxon.version}"/>
  <property name="dir.saxon" location="${dir.build.lib}/${pkg.saxon}"/>
  <property name="pkg.tomcat" value="apache-tomcat-${dep.tomcat.version}"/>
@@ -68,7 +71,7 @@
   </delete>
   <antcall target="merge-doc-xsl"/>
   <copy todir="${dir.src.xsl}/ext">
-   <fileset dir="${dir.build.xsl}/xslutil"/>
+   <fileset dir="${dir.xslutil}/dist"/>
   </copy>
   <antcall target="merge-src-xsl"/>
   <antcall target="merge-test-xsl"/>
@@ -171,12 +174,21 @@
   <mkdir dir="${dir.build.dl}"/>
   <mkdir dir="${dir.build.lib}"/>
   <mkdir dir="${dir.build.bin}"/>
+  <antcall target="get-xslutil"/>
   <antcall target="get-saxon"/>
   <antcall target="get-tomcat"/>
   <antcall target="put-jsenv"/>
   <mkdir dir="${dir.deploy}"/>
   <touch file="${dir.src.css}/${ant.project.name}.scss"/>
   <touch file="${dir.src.js}/index.js"/>
+ </target>
+
+ <target name="get-xslutil">
+  <property name="url" value="https://github.com/xslet/xslutil/archive/${dep.xslutil.version}.zip"/>
+  <property name="zip" location="${dir.build.dl}/${pkg.xslutil}.zip"/>
+  <property name="dir.unzip" location="${dir.xslutil}/.."/>
+  <get src="${url}" dest="${zip}"/>
+  <unzip src="${zip}" dest="${dir.unzip}"/>
  </target>
 
  <target name="get-saxon">
