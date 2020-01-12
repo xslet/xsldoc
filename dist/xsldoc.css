@@ -63,7 +63,8 @@ section.elements > div.element-list > div.element-item > div.element-param-list 
   display: flex; }
   section.elements > div.element-list > div.element-item > div.element-param-list > div.element-param-item > div.element-param-desc:before {
     content: '-';
-    margin-left: 0.3rem; }
+    margin-left: 0.3rem;
+    margin-right: 0.3rem; }
   section.elements > div.element-list > div.element-item > div.element-param-list > div.element-param-item > div.element-param-desc {
     margin-left: 0.3rem;
     margin-bottom: 0rem; }
