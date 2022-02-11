@@ -1,10 +1,23 @@
-$font-family: "Lucida grande", Arial, serif;
-$font-size: 14px;
+$font-family: arial sans-serif;
 $font-color: #333;
-$horz-line-style: solid 2px #999;
-$comment-color: #999;
-$title-color: #68c;
-$title-bgcolor: #adf;
-$page-title-color: #38c;
-$page-desc-color: #666;
+$font-size: 16px;
 
+$page-title-color: #38c;
+$section-title-bgcolor: #adf;
+$header-footer-border-color: #38c;
+
+$system-props-title-color: #abd;
+$system-props-name-color: #38c;
+
+$namespace-prefix-color: #38c;
+$importing-file-color: #38c;
+$including-file-color: #38c;
+$parameter-name-color: #38c;
+
+$match-template-name-color: #38c;
+$match-template-param-title-color: #abd;
+$match-template-param-name-color: #38c;
+
+$named-template-name-color: #38c;
+$named-template-param-title-color: #abd;
+$named-template-param-name-color: #38c; 

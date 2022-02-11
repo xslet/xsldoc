@@ -1,37 +1,39 @@
 header {
-  border-bottom: $horz-line-style;
+  border-bottom: solid 1px $header-footer-border-color;
 }
 
 footer {
-  border-top: $horz-line-style;
+  border-top: solid 1px $header-footer-border-color;
 }
 
-header, footer {
-  margin: 0rem 0.5rem;
-  padding: 0.5rem 0rem;
-  vertical-align: middle;
+div.system-props {
+  display: flex;
 
-  & > div.system-props {
+  & > div.system-props-title {
+    flex: auto;
+    color: $system-props-title-color;
+    margin-right: 0.5rem;
+    text-align: right;
+  }
+  & > div.system-props-title::after {
+    content: ':';
+  }
 
-    & > span.system-props-title {
-      color: $title-color;
+  & > div.system-props-item {
+    flex: initial;
+    padding-right: 0.5rem;
+
+    & > span.system-props-item-name {
+      color: $system-props-name-color;
     }
-
-    & > span.system-prop-list {
-
-      & > span.system-prop-item {
-        margin-left: 0.5rem;
-
-        & > span.system-prop-name {
-          color: $title-color;
-        }
-        & > span.system-prop-name:after {
-          content: '=';
-        }
-
-        & > span.system-prop-value {
-        }
-      }
+    & > span.system-props-item-name::after {
+      content: '=';
+    }
+    & > span.system-props-item-value {
     }
   }
+  & > div.system-props-item:not(:last-of-type)::after {
+    content: ',';
+  }
 }
+

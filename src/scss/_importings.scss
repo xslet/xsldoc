@@ -1,14 +1,14 @@
-section.importings {
+div.importing-list {
+  padding-left: 0.3rem;
+  padding-bottom: 0.5rem;
 
-  & > div.importing-list {
-
-    & > div.importing-item {
-
-      & > div.importing-file {
-      }
-
-      & > div.importing-desc {
-      }
+  & > div.importing-item {
+    & > div.importing-description {
+      padding-left: 1rem;
     }
+  }
+
+  & > div.importing-item:not(:first-of-type) {
+    margin-top: 0.3rem;
   }
 }

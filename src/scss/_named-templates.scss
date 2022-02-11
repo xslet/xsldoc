@@ -1,0 +1,40 @@
+div.named-template-list {
+  padding-left: 0.3rem;
+  padding-bottom: 0.5rem;
+
+  & > div.named-template-item {
+    & > div.named-template-name {
+      color: $named-template-name-color;
+    }
+
+    & > div.named-template-description {
+      margin-left: 1rem;
+    }
+
+    & > div.named-template-param-list {
+      padding-left: 1rem;
+      padding-top: 0.3rem;
+
+      & > div.named-template-param-title {
+        color: $named-template-param-title-color;
+      }
+      & > div.named-template-param-title::after {
+        content: ':';
+      }
+      & > div.named-template-param-item {
+        padding-left: 1rem;
+
+        & > span.named-template-param-name {
+          color: $named-template-param-name-color;
+        }
+        & > span.named-template-param-name::after {
+          content: " - ";
+        }
+      }
+    }
+  }
+
+  & > div.named-template-item:not(:first-of-type) {
+    margin-top: 0.5rem;
+  }
+}

@@ -1,14 +1,14 @@
-section.includings {
+div.including-list {
+  padding-left: 0.3rem;
+  padding-bottom: 0.5rem;
 
-  & > div.including-list {
-
-    & > div.including-item {
-
-      & > div.including-file {
-      }
-
-      & > div.including-desc {
-      }
+  & > div.including-item {
+    & > div.including-description {
+      padding-left: 1rem;
     }
+  }
+
+  & > div.including-item:not(:first-of-type) {
+    margin-top: 0.3rem;
   }
 }

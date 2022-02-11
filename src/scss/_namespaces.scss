@@ -1,19 +1,10 @@
-section.namespaces {
+div.namespace-list {
+  padding-left: 0.3rem;
+  padding-bottom: 0.5rem;
 
-  & > div.namespace-list {
-
-    & > div.namespace-item {
-
-      & > span.namespace-prefix {
-        color: $title-color;
-      }
-
-      & > span.namespace-prefix:after {
-        content: '=';
-      }
-
-      & > span.namespace-uri {
-      }
+  & > div.namespace-item {
+    & > span.namespace-prefix {
+      color: $namespace-prefix-color;
     }
   }
 }
