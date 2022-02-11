@@ -2,30 +2,225 @@
 <html>
 <head>
  <meta charset="utf-8"/>
- <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
- <title>@xslet/xsldoc</title>
- <style>
- p { margin-left: 1rem; }
- </style>
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>xsldoc ver0.1</title>
+ <link href="index.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
- <article>
-  <h1>@xslet/xsldoc</h1>
-  <p>This is a tool to print an API document of a XSL file on Web browsers.</p>
-  <p>This program is written in XSLT 1.0.</p>
+ <nav>
+  <ul>
+   <li><a href="#about">About</a></li>
+   <li><a href="#usage">Usage</a></li>
+   <li><a href="./api/xsldoc.xml">APIs</a></li>
+   <li><a href="#tests">Tests</a></li>
+   <li><a href="#links">Links</a></li>
+  </ul>
+  <a href="#"><img style="position:fixed;left:2rem;top:0.2rem;width:3.5rem;height:3.5rem;border:solid 1px #ccc;border-radius:0.4rem" src="https://avatars.githubusercontent.com/u/21002039?s=200&v=4"/></a>
+ </nav>
 
+ <main>
+  <header>
+   <h1>xsldoc <span class="version">Ver 0.1</span></h1>
+   <p>
+A XSLT applet to print an API document of a XSL file on Web browsers.
+   </p>
+   <p>
+Copyright (C) xslet project.<br>
+MIT License.
+   </p>
+  </header>
+
+  <a name="about"></a>
   <section>
-   <h2>API</h2>
-   <p>The API document of xsldoc is <a href="api/xsldoc.xml">here</a>.</p>
+   <h2>About xsldoc</h2>
+   <p>
+xsldoc creates an API document of a XSL file which implements a XSLT application.
+   </p>
+   <p>
+XSL is the abbreviation for Extensible Stylesheet Language, and is a markup language used to transform and render XML documents.
+XSL consists of three specifications: XSLT, XPath and XSL-FO.
+XSLT is the specification about transformation from a XML document into different structured XML documents.
+XPath is the specification to select elements in a XML document.
+XSL-FO is the specification about presentation formatting of a XML document for printing, PDF output, and so on.
+These three specifications are supposed that XPath picks up elements from an original XML document, and XSLT transforms these elements into a result XML document conforming to XSL-FO, then XSL-FO processor outputs it to a printer or a file.
+   </p>
+   <p>
+However, by transforming original XML document into HTML with XSLT, the result XML document can be displayed on Web browsers, and also Web browsers have functions to output it to both printers and PDF files, so we don't need any other tools and effots for transformation.
+(NOTE: For security reasons, Web browsers allow pages with XSLT transformation only via a Web server, though they allowed local files in the past).
+Therefore, we can develop XSL applications or XSL libraries for Web browsers with only XSLT and XPath.
+Such XSL applications can display Web pages from XML documents on Web browsers, and such XSL libraries can be used or overridden partly by XSL applications.
+   </p>
+   <p>
+xsldoc generates a HTML image of an API document for such XSL applications and libraries on Web browsers.
+This picks up templates and parameters implemented in a XSL file, and arrages them on a page with comments.
+These comments are picked up from specific comments called "design comments".
+   </p>
   </section>
 
+  <a name="usage"></a>
   <section>
-   <h2>Test</h2>
+   <h2>Usage</h2>
+   <p>
+To display an API document of a XSL file with xsldoc, two small handworks are needed.
+   </p>
    <ol>
-    <li><a href="test/get_design_comment.test.xml">get_design_comment</a></li>
+    <li>
+     <p>
+Add a processing-instruction for applying xsldoc into a XSL file of a XSL application or libraries.
+     </p>
+     <div class="code">
+<div>&lt;?xml version="1.0" encoding="utf-8"?&gt;</div>
+<div>&lt;?xml-stylesheet type="application/xml" href="./xsldoc.xsl"?&gt;  &lt;!-- This! --&gt;</div>
+<div>...</div>
+     </div>
+    </li>
+    <li>
+     <p>
+Rename the extension ".xsl" of a XSL file of a XSL application or libraries to ".xml"  to help Web browser identify its file type.
+     </p>
+     <div class="code">
+<div>$ mv app.xsl app.xml</div>
+     </div>
+    </li>
+    <li>
+     <p>
+Open the renamed XML file with a Web browser via a Web server.
+     </p>
+    </li>
    </ol>
+
+   <h3>Design comment</h3>
+   <p>
+xsldoc provides a specific comment for a API document, called "design comment".
+This comment is displayed as a description for templates and parameters to which the comment is attached.
+The formats of this comment are as follows:
+   </p>
+   <ul>
+    <li>
+     <p>
+An example of a single line design comment.
+     </p>
+     <div class="code">
+<div>&lt;--** A design comment. --&gt;</div>
+<div>&lt;xsl:param name="ParamName"&gt;Value&lt;/xsl:param&gt;</div>
+     </div>
+    </li>
+    <li>
+     <p>
+An example of a multiple line design comment.
+     </p>
+     <div class="code">
+<div>&lt;--**</div>
+<div> This is</div>
+<div> a design comment.</div>
+<div>--&gt;</div>
+<div>&lt;xsl:template name="TemplateName"&gt;</div>
+<div>  ...</div>
+     </div>
+    </li>
+    <li>
+     <p>
+An example of a multiple prefixed line design comment.
+     </p>
+     <div class="code">
+<div>&lt;--</div>
+<div> ** This is</div>
+<div> ** a design comment.</div>
+<div>--&gt;</div>
+<div>&lt;xsl:template name="TemplateName"&gt;</div>
+<div>  ...</div>
+     </div>
+    </li>
+   </ul>
+   <p>
+<b>NOTE:</b>
+In a page description which is a design comment for xsl:stylesheet element, the first line is used as the page title.
+The first line is displayed larger than other lines, and also used as the HTML title.
+   </p>
   </section>
 
- </article>
+  <a name="apis"></a>
+  <section>
+   <h2>APIs</h2>
+   <p>
+Since xsldoc is a XSL application, its own API document can be generated, too.<br>
+The generated API document is <a href="./api/xsldoc.xml">here</a>.
+   </p>
+  </section>
+
+  <a name="tests"></a>
+  <section>
+   <h2>Tests</h2>
+   <p>
+This section provides the results of unit tests of named-templates in the API document.
+   </p>
+   <ul>
+    <li>
+<a href="test/unit/get_design_comment.test.xml">get_design_comment</a>
+    </li>
+    <li>
+<a href="test/unit/get_first_line_in_design_comment.test.xml">get_first_line_in_design_comment</a>
+    </li>
+   </ul>
+  </section>
+
+  <a name="links"></a>
+  <section id="link-section">
+   <h2>Links</h2>
+   <p>
+xsldoc is one of applications in xslet project.
+xslet is a project to develop Web applications with XSL (XSLT and XPath).
+   </p>
+   <ul>
+    <li>
+<a id="xsldoc" href="https://github.com/xslet/xsldoc">xsldoc repository on GitHub</a>
+    </li>
+    <li>
+<a id="xslet" href="https://github.com/xslet">xslet project on GitHub</a>
+    </li>
+   </ul>
+   <p>
+XSLT and XPath is the specifications specified by W3C.
+xsldoc uses XSLT version 1.0 and XPath version 1.0 in it because Web browsers support them.
+   </p>
+   <ul>
+    <li>
+<a id="xslt1" href="https://www.w3.org/TR/1999/REC-xslt-19991116">XSLT 1.0 - W3C Recommendation</a>
+    </li>
+    <li>
+<a id="xpath1" href="https://www.w3.org/TR/1999/REC-xpath-19991116/">XPath 1.0 - W3C Recommendation</a>
+    </li>
+   </ul>
+   <p>
+In addition, xsldoc uses XSLT version 3.0 and XPath version 3.0 in the build environment.
+   </p>
+   <ul>
+    <li>
+<a id="xslt3" href="https://www.w3.org/TR/xslt-30/">XSLT 3.0 - W3C Recommendation</a>
+    </li>
+    <li>
+<a id="xpath3" href="https://www.w3.org/TR/xpath-30/">XPath 3.0 - W3C Recommendation</a>
+    </li>
+   </ul>
+   <p>
+The xsldoc also uses following application as tools in the build environment.
+   </p>
+   <ul>
+    <li>
+<a id="saxon" href="http://saxon.sourceforge.net/">Saxon for Java - Saxonica</a>
+    </li>
+    <li>
+<a id="ant" href="https://ant.apache.org/">Apache Ant - The Apache Software Foundation</a>
+    </li>
+    <li>
+<a id="tomcat" href="https://tomcat.apache.org/">Apache Tomcat - The Apache Software Foundation</a>
+    </li>
+    <li>
+<a id="sass" href="https://sass-lang.com/">SCSS - the Sass team</a>
+    </li>
+   </ul>
+  </section>
+ </main>
+
 </body>
 </html>
