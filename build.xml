@@ -4,7 +4,7 @@
 
  <!-- These properties are used by merge processes -->
  <property name="product" value="xsldoc.xsl"/>
- <property name="version" value="0.1"/>
+ <property name="version" value="1.0"/>
  <property name="copyright" value="Copyright (C) 2019-2022 xslet project"/>
  <property name="license" value="MIT License"/>
 

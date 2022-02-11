@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="application/xml" href="xsldoc/xsldoc.xsl"?><!-- xsldoc.xsl 0.1 Copyright (C) 2019-2022 xslet project MIT License --><!--** xsldoc.xsl ver0.1 - API Document
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="application/xml" href="xsldoc/xsldoc.xsl"?><!-- xsldoc.xsl 1.0 Copyright (C) 2019-2022 xslet project MIT License --><!--** xsldoc.xsl ver1.0 - API Document
 **
  xsldoc is a XSLT applet to print an API document of a XSL file on Web browsers. 
 
