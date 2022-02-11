@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="application/xml" href="unit-test.xsl"?>
+
+<describe title="get_first_line_in_design_comment">
+
+ <it title="should get a design comment immediately before an element">
+  <!--** A comment. --><compute name="get_first_line_in_design_comment"></compute>
+  <expect>A comment.</expect>
+ </it>
+
+
+ <it title="should get a design comment before an element">
+  <!--** A comment. -->  <compute name="get_first_line_in_design_comment"></compute>
+  <expect>A comment.</expect>
+ </it>
+
+
+ <it title="should get a design comment before an element">
+  <!--** A comment. -->
+  <compute name="get_first_line_in_design_comment"></compute>
+  <expect>A comment.</expect>
+ </it>
+
+
+ <it title="should not get a design comment not before an element">
+  <!--** A comment. -->
+  A text.
+  <compute name="get_first_line_in_design_comment"></compute>
+  <expect></expect>
+ </it>
+
+
+ <it title="should not get a design comment not before an element">
+  <!--** A comment. -->
+  <aaa/>
+  <compute name="get_first_line_in_design_comment"></compute>
+  <expect></expect>
+ </it>
+
+
+ <it title="should get only first line in multi-line design comment">
+  <!--**
+   comment A.
+   comment B.
+   comment C.
+  -->
+  <compute name="get_first_line_in_design_comment"></compute>
+  <expect>comment A.</expect>
+ </it>
+
+
+ <it title="should get a prefixed design comment">
+  <!--
+   ** A comment.
+   -->
+  <compute name="get_first_line_in_design_comment"></compute>
+  <expect>A comment.</expect>
+ </it>
+
+
+ <it title="should get only first line in a multi-line prefixed design comment">
+  <!--
+   ** comment A.
+   ** comment B.
+   ** comment C.
+  -->
+  <compute name="get_first_line_in_design_comment"></compute>
+  <expect>comment A.</expect>
+ </it>
+
+</describe>

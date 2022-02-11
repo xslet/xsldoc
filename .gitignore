@@ -1,10 +1,9 @@
 node_modules
 
-build_aux/downloads
-build_aux/lib
-build_aux/bin
+work
 
 .DS_Store
+Thumbs.db
 *.swp
 *.swo
 

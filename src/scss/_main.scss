@@ -5,40 +5,43 @@ html {
 body {
   font-family: $font-family;
   color: $font-color;
-  padding: 0rem;
+  padding: 0.5rem;
   margin: 0rem;
 }
 
 main {
-  padding: 0rem 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 
-  & > h1 {
-    color: $page-title-color;
-  }
+  & > div.page-description {
 
-  & > div.page-desc {
-    color: $page-desc-color;
+    & > div.design-comment-line:first-of-type {
+      color: $page-title-color;
+      font-size: 2rem;
+      font-weight: bold;
+      margin-left: 0.7rem;
+      margin-bottom: 1rem;
+    }
+
+    & > div.design-comment-line:not(:first-of-type) {
+      margin-left: 1rem;
+    }
   }
 
   & > section {
+
     & > h2 {
-      background-color: $title-bgcolor;
+      font-size: 1.4rem;
+      background-color: $section-title-bgcolor;
       padding: 0.2rem 0.5rem;
+    }
+
+    & > h2:after {
+      content: ':';
     }
 
     & > div.section-body {
       margin-left: 0.5rem;
     }
   }
-}
-
-.comment {
-  margin-left: 1rem;
-  margin-bottom: 1rem;
-  color: $comment-color;
-}
-
-.params {
-  margin-left: 1rem;
-  margin-bottom: 1rem;
 }

@@ -1,0 +1,178 @@
+@charset "utf-8";
+
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0rem;
+  padding: 0rem;
+  background-color: #bef;
+}
+
+a[href] {
+  color: black;
+}
+
+nav {
+  position: fixed;
+  top: 0rem;
+  left: 0rem;;
+  width: 100vw;
+  height: 4rem;
+  border-bottom: solid #ccc 1px;
+  background-color: white;
+}
+nav > ul {
+  display: flex;
+  margin: 0rem;
+  padding: 0rem 8rem;
+}
+nav > ul > li {
+  flex: auto;
+  list-style: none;
+  line-height: 4rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+main {
+  padding: 1rem;
+}
+
+header {
+  margin-top: 4rem;
+  padding-left: 2rem;
+  padding-bottom: 1rem;
+}
+
+header > h1 {
+  padding: 1rem 0rem 0.5rem;
+  margin: 0rem;
+  font-size: 3rem;
+}
+header > h1 > span.version {
+  font-size: 1.8rem;
+  padding: 0rem;
+  margin: 0rem;
+}
+header > p {
+  line-height: 1.3rem;
+  padding: 0rem;
+  margin: 0.5rem 0rem;
+}
+
+a[name] {
+  position: relative;
+  top: -4rem;
+}
+
+section {
+  padding-bottom: 1rem;
+}
+section > h2 {
+  border-top: solid 1px white;
+  font-size: 1.6rem;
+  padding: 1rem 0rem 0.5rem 1rem;
+  margin: 0rem;
+}
+section > h3 {
+  font-size: 1.2rem;
+  padding: 0.5rem 0rem 0.5rem 1rem;
+  margin: 2rem 0rem 0rem;
+}
+section > p {
+  margin-left: 1.3rem;
+}
+
+section > ul {
+  margin-left: 2.3rem;
+  padding: 0rem;
+}
+
+div.code {
+  font-family: monospace;
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+  background-color: #eee;
+  display: inline-block;
+  border-radius: 0.4rem;
+}
+
+a#xsldoc::after, a#xslet::after {
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+  height: 0.9rem;
+  vertical-align: middle;
+  margin-left: 0.2rem;
+  background: url('./images/github-icon-1.svg');
+  background-size: auto 0.9rem;
+  background-repeat: no-repeat;
+}
+a#xslt1::after, a#xpath1::after {
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+  height: 0.9rem;
+  vertical-align: middle;
+  margin-left: 0.2rem;
+  background: url('./images/w3c_home.svg');
+  background-size: auto 0.9rem;
+  background-repeat: no-repeat;
+}
+a#xslt3::after, a#xpath3::after {
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+  height: 0.9rem;
+  vertical-align: middle;
+  margin-left: 0.2rem;
+  background: url('./images/W3C.svg');
+  background-size: auto 0.9rem;
+  background-repeat: no-repeat;
+}
+a#saxon::after {
+  content: '';
+  display: inline-block;
+  width: 5rem;
+  height: 0.9rem;
+  vertical-align: middle;
+  margin-left: 0.2rem;
+  background: url('./images/logo_crop-mid-blue-background.gif');
+  background-size: auto 0.9rem;
+  background-repeat: no-repeat;
+}
+a#ant::after {
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+  height: 0.9rem;
+  vertical-align: middle;
+  margin-left: 0.2rem;
+  background: url('./images/ant_logo_large.gif');
+  background-size: auto 0.9rem;
+  background-repeat: no-repeat;
+}
+a#tomcat::after {
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+  height: 0.9rem;
+  vertical-align: middle;
+  margin-left: 0.2rem;
+  background: url('./images/tomcat.png');
+  background-size: auto 0.9rem;
+  background-repeat: no-repeat;
+}
+a#sass::after {
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+  height: 0.9rem;
+  vertical-align: middle;
+  margin-left: 0.2rem;
+  background: url('./images/logo-b6e1ef6e.svg');
+  background-size: auto 0.9rem;
+  background-repeat: no-repeat;
+}

@@ -1,86 +1,182 @@
 html {
-  font-size: 14px; }
+  font-size: 16px;
+}
 
 body {
-  font-family: "Lucida grande", Arial, serif;
+  font-family: arial sans-serif;
   color: #333;
-  padding: 0rem;
-  margin: 0rem; }
+  padding: 0.5rem;
+  margin: 0rem;
+}
 
 main {
-  padding: 0rem 1rem; }
-  main > h1 {
-    color: #38c; }
-  main > div.page-desc {
-    color: #666; }
-  main > section > h2 {
-    background-color: #adf;
-    padding: 0.2rem 0.5rem; }
-  main > section > div.section-body {
-    margin-left: 0.5rem; }
-
-.comment {
-  margin-left: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+main > div.page-description > div.design-comment-line:first-of-type {
+  color: #38c;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-left: 0.7rem;
   margin-bottom: 1rem;
-  color: #999; }
-
-.params {
+}
+main > div.page-description > div.design-comment-line:not(:first-of-type) {
   margin-left: 1rem;
-  margin-bottom: 1rem; }
+}
+main > section > h2 {
+  font-size: 1.4rem;
+  background-color: #adf;
+  padding: 0.2rem 0.5rem;
+}
+main > section > h2:after {
+  content: ":";
+}
+main > section > div.section-body {
+  margin-left: 0.5rem;
+}
 
 header {
-  border-bottom: solid 2px #999; }
+  border-bottom: solid 1px #38c;
+}
 
 footer {
-  border-top: solid 2px #999; }
+  border-top: solid 1px #38c;
+}
 
-header, footer {
-  margin: 0rem 0.5rem;
-  padding: 0.5rem 0rem;
-  vertical-align: middle; }
-  header > div.system-props > span.system-props-title, footer > div.system-props > span.system-props-title {
-    color: #68c; }
-  header > div.system-props > span.system-prop-list > span.system-prop-item, footer > div.system-props > span.system-prop-list > span.system-prop-item {
-    margin-left: 0.5rem; }
-    header > div.system-props > span.system-prop-list > span.system-prop-item > span.system-prop-name, footer > div.system-props > span.system-prop-list > span.system-prop-item > span.system-prop-name {
-      color: #68c; }
-    header > div.system-props > span.system-prop-list > span.system-prop-item > span.system-prop-name:after, footer > div.system-props > span.system-prop-list > span.system-prop-item > span.system-prop-name:after {
-      content: '='; }
+div.system-props {
+  display: flex;
+}
+div.system-props > div.system-props-title {
+  flex: auto;
+  color: #abd;
+  margin-right: 0.5rem;
+  text-align: right;
+}
+div.system-props > div.system-props-title::after {
+  content: ":";
+}
+div.system-props > div.system-props-item {
+  flex: initial;
+  padding-right: 0.5rem;
+}
+div.system-props > div.system-props-item > span.system-props-item-name {
+  color: #38c;
+}
+div.system-props > div.system-props-item > span.system-props-item-name::after {
+  content: "=";
+}
+div.system-props > div.system-props-item:not(:last-of-type)::after {
+  content: ",";
+}
 
-section.namespaces > div.namespace-list > div.namespace-item > span.namespace-prefix {
-  color: #68c; }
-
-section.namespaces > div.namespace-list > div.namespace-item > span.namespace-prefix:after {
-  content: '='; }
-
-section.elements > div.element-list > div.element-item > div.element-param-list:before {
-  content: 'Parameter:';
-  font-size: 0.9rem;
-  color: #68c; }
-
-section.elements > div.element-list > div.element-item > div.element-param-list > div.element-param-item {
+div.importing-list {
+  padding-left: 0.3rem;
+  padding-bottom: 0.5rem;
+}
+div.importing-list > div.importing-item > div.importing-description {
   padding-left: 1rem;
-  display: flex; }
-  section.elements > div.element-list > div.element-item > div.element-param-list > div.element-param-item > div.element-param-desc:before {
-    content: '-';
-    margin-left: 0.3rem;
-    margin-right: 0.3rem; }
-  section.elements > div.element-list > div.element-item > div.element-param-list > div.element-param-item > div.element-param-desc {
-    margin-left: 0.3rem;
-    margin-bottom: 0rem; }
+}
+div.importing-list > div.importing-item:not(:first-of-type) {
+  margin-top: 0.3rem;
+}
 
-section.functions > div.function-list > div.function-item > div.function-param-list:before {
-  content: 'Parameters:';
-  font-size: 0.9rem;
-  color: #68c; }
-
-section.functions > div.function-list > div.function-item > div.function-param-list > div.function-param-item {
+div.including-list {
+  padding-left: 0.3rem;
+  padding-bottom: 0.5rem;
+}
+div.including-list > div.including-item > div.including-description {
   padding-left: 1rem;
-  display: flex; }
-  section.functions > div.function-list > div.function-item > div.function-param-list > div.function-param-item > div.function-param-desc:before {
-    content: '-';
-    margin-left: 0.3rem;
-    margin-right: 0.3rem; }
-  section.functions > div.function-list > div.function-item > div.function-param-list > div.function-param-item > div.function-param-desc {
-    margin-left: 0rem;
-    margin-bottom: 0rem; }
+}
+div.including-list > div.including-item:not(:first-of-type) {
+  margin-top: 0.3rem;
+}
+
+div.namespace-list {
+  padding-left: 0.3rem;
+  padding-bottom: 0.5rem;
+}
+div.namespace-list > div.namespace-item > span.namespace-prefix {
+  color: #38c;
+}
+
+div.parameter-list {
+  padding-left: 0.3rem;
+  padding-bottom: 0.5rem;
+}
+div.parameter-list > div.parameter-item > div.parameter-name {
+  color: #38c;
+}
+div.parameter-list > div.parameter-item > div.parameter-description {
+  margin-left: 1rem;
+}
+div.parameter-list > div.parameter-item:not(:first-of-type) {
+  margin-top: 0.3rem;
+}
+
+div.match-template-list {
+  padding-left: 0.3rem;
+  padding-bottom: 0.5rem;
+}
+div.match-template-list > div.match-template-item > div.match-template-name {
+  color: #38c;
+}
+div.match-template-list > div.match-template-item > div.match-template-description {
+  margin-left: 1rem;
+}
+div.match-template-list > div.match-template-item > div.match-template-param-list {
+  padding-left: 1rem;
+  padding-top: 0.3rem;
+}
+div.match-template-list > div.match-template-item > div.match-template-param-list > div.match-template-param-title {
+  color: #abd;
+}
+div.match-template-list > div.match-template-item > div.match-template-param-list > div.match-template-param-title::after {
+  content: ":";
+}
+div.match-template-list > div.match-template-item > div.match-template-param-list > div.match-template-param-item {
+  padding-left: 1rem;
+}
+div.match-template-list > div.match-template-item > div.match-template-param-list > div.match-template-param-item > span.match-template-param-name {
+  color: #38c;
+}
+div.match-template-list > div.match-template-item > div.match-template-param-list > div.match-template-param-item > span.match-template-param-name::after {
+  content: " - ";
+}
+div.match-template-list > div.match-template-item:not(:first-of-type) {
+  margin-top: 0.5rem;
+}
+
+div.named-template-list {
+  padding-left: 0.3rem;
+  padding-bottom: 0.5rem;
+}
+div.named-template-list > div.named-template-item > div.named-template-name {
+  color: #38c;
+}
+div.named-template-list > div.named-template-item > div.named-template-description {
+  margin-left: 1rem;
+}
+div.named-template-list > div.named-template-item > div.named-template-param-list {
+  padding-left: 1rem;
+  padding-top: 0.3rem;
+}
+div.named-template-list > div.named-template-item > div.named-template-param-list > div.named-template-param-title {
+  color: #abd;
+}
+div.named-template-list > div.named-template-item > div.named-template-param-list > div.named-template-param-title::after {
+  content: ":";
+}
+div.named-template-list > div.named-template-item > div.named-template-param-list > div.named-template-param-item {
+  padding-left: 1rem;
+}
+div.named-template-list > div.named-template-item > div.named-template-param-list > div.named-template-param-item > span.named-template-param-name {
+  color: #38c;
+}
+div.named-template-list > div.named-template-item > div.named-template-param-list > div.named-template-param-item > span.named-template-param-name::after {
+  content: " - ";
+}
+div.named-template-list > div.named-template-item:not(:first-of-type) {
+  margin-top: 0.5rem;
+}
+
+/*# sourceMappingURL=xsldoc.css.map */

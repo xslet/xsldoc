@@ -1,15 +1,18 @@
-section.parameters {
+div.parameter-list {
+  padding-left: 0.3rem;
+  padding-bottom: 0.5rem;
 
-  & > div.parameter-list {
-  
-    & > div.parameter-item {
+  & > div.parameter-item {
+    & > div.parameter-name {
+      color: $parameter-name-color;
+    }
 
-      & > div.parameter-name {
-      }
-
-      & > div.parameter-desc {
-      }
+    & > div.parameter-description {
+      margin-left: 1rem;
     }
   }
-}
 
+  & > div.parameter-item:not(:first-of-type) {
+    margin-top: 0.3rem;
+  }
+}
