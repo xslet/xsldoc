@@ -36,6 +36,16 @@ nav > ul > li {
   vertical-align: middle;
 }
 
+img#logo {
+  position: fixed;
+  left: 2rem;
+  top: 0.2rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: solid 1px #ccc;
+  border-radius: 0.4rem;
+}
+
 main {
   padding: 1rem;
 }
