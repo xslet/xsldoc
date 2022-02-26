@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project>
+
+ <import file="./build.directories.xml"/>
+
+
+ <target name="setup"
+   description="Make directories and download modules used for build.">
+  <antcall target="setup:dirs"/>
+  <antcall target="setup:scss"/>
+  <antcall target="setup:js"/>
+  <antcall target="setup:deps"/>
+ </target>
+
+ <target name="setup:scss" if="is_application">
+  <touch file="${dir.src.scss}/${ant.project.name}.scss"/>
+ </target>
+
+ <target name="setup:js" if="is_application">
+  <copy todir="${dir.src.js}">
+   <fileset dir="${dir.res.js}"/>
+  </copy>
+  <replace file="${dir.src.js}/package.json">
+   <replacefilter token="%PROJECT%" value="${ant.project.name}"/>
+  </replace>
+  <touch file="${dir.src.js}/index.js"/>
+  <exec executable="${npm.cmd}">
+   <arg line="${npm.arg}"/>
+   <arg line="install"/>
+   <arg line="--prefix ${dir.src.js}"/>
+  </exec>
+ </target>
+
+
+ <target name="build"
+   description="Execute `clean`, `merge` and `deploy` tasks.">
+  <antcall target="clean"/>
+  <antcall target="merge"/>
+  <antcall target="build:scss"/>
+  <antcall target="build:js"/>
+  <antcall target="deploy"/>
+ </target>
+
+
+ <target name="clean"
+   description="Clean files in `dist` directory.">
+  <delete>
+   <fileset dir="${dir.dist}"      includes="**/*"/>
+   <fileset dir="${dir.deploy}"    includes="**/*"/>
+   <fileset dir="${dir.docs.test}" includes="**/*"/>
+   <fileset dir="${dir.docs.api}"  includes="**/*"/>
+  </delete>
+  <exec executable="find" os="Mac OS X">
+   <arg line=". -name .DS_Store -delete"/>
+  </exec>
+ </target>
+
+
+ <target name="merge"
+   description="Merge XSL files into a distributable file.">
+  <antcall target="merge:clear-xsl-ext"/>
+  <antcall target="merge:xsl-for-doc"/>
+  <antcall target="merge:bring-xsl-ext"/>
+  <antcall target="merge:xsl-for-dist"/>
+  <antcall target="merge:xsl-for-test"/>
+ </target>
+
+ <target name="merge:clear-xsl-ext" if="is_application">
+  <delete>
+   <fileset dir="${dir.src.xsl.ext}" includes="**/*"/>
+  </delete>
+ </target>
+
+ <target name="merge:bring-xsl-ext" if="is_application">
+  <copy todir="${dir.src.xsl.ext}" flatten="true">
+   <fileset dir="${dir.work.xsl}">
+    <include name="*/dist/*.xsl"/>
+   </fileset>
+  </copy>
+ </target>
+
+ <target name="merge:xsl-for-doc">
+  <path id="extjars">
+   <fileset dir="${dir.work.lib}">
+    <include name="**/*.jar" />
+   </fileset>
+  </path>
+  <java classname="net.sf.saxon.Transform">
+   <arg line="-o:${dir.docs}" />
+   <arg line="-s:${dir.src.xsl}" />
+   <arg line="-xsl:${dir.res.xsl}/merge-for-doc.xsl" />
+   <arg line="-strip:all" />
+   <classpath refid="extjars" />
+  </java>
+ </target>
+
+ <target name="merge:xsl-for-dist">
+  <path id="extjars">
+   <fileset dir="${dir.work.lib}">
+    <include name="**/*.jar" />
+   </fileset>
+  </path>
+  <java classname="net.sf.saxon.Transform">
+   <arg line="-o:${dir.dist}" />
+   <arg line="-s:${dir.src.xsl}" />
+   <arg line="-xsl:${dir.res.xsl}/merge-for-dist.xsl" />
+   <arg line="-strip:all" />
+   <classpath refid="extjars" />
+  </java>
+ </target>
+
+ <target name="merge:xsl-for-test">
+  <path id="extjars">
+   <fileset dir="${dir.work.lib}">
+    <include name="**/*.jar" />
+   </fileset>
+  </path>
+  <java classname="net.sf.saxon.Transform">
+   <arg line="-o:${dir.test.unit}" />
+   <arg line="-s:${dir.src.xsl}" />
+   <arg line="-xsl:${dir.res.xsl}/merge-for-test.xsl" />
+   <arg line="-strip:all" />
+   <classpath refid="extjars" />
+  </java>
+ </target>
+
+
+ <target name="build:scss" if="is_application">
+  <property name="prefix" value="${dir.src.js}" />
+  <exec executable="${npm.cmd}">
+   <arg line="${npm.arg}" />
+   <arg line="run sass:build" />
+   <arg line="--prefix ${prefix}" />
+  </exec>
+ </target>
+
+
+ <target name="build:js" if="is_application">
+  <property name="prefix" value="${dir.src.js}" />
+  <exec executable="${npm.cmd}">
+   <arg line="${npm.arg}" />
+   <arg line="run js:build" />
+   <arg line="--prefix ${prefix}" />
+  </exec>
+ </target>
+
+
+ <target name="deploy"
+   description="Deploy distributable files and test files to Tomcat.">
+  <antcall target="deploy:xsl:imported"/>
+  <copy todir="${dir.docs.test}">
+   <fileset dir="${dir.test}"/>
+  </copy>
+  <copy todir="${dir.docs.test}/unit">
+   <fileset dir="${dir.res.doc}"/>
+  </copy>
+  <copy todir="${dir.docs.api}/xsldoc">
+   <fileset dir="${dir.dist}"/>
+  </copy>
+  <antcall target="deploy:xsldoc"/>
+  <copy todir="${dir.deploy}">
+   <fileset dir="${dir.docs}"/>
+  </copy>
+ </target>
+
+ <target name="deploy:xsldoc" unless="is_xsldoc">
+  <copy todir="${dir.docs.api}/xsldoc">
+   <fileset dir="${dir.xsldoc}/dist"/>
+  </copy>
+ </target>
+
+ <target name="deploy:xsl:imported" unless="is_application">
+  <copy todir="${dir.test.unit}" flatten="true">
+   <fileset dir="${dir.work.xsl}">
+    <include name="*/dist/*.xsl"/>
+   </fileset>
+  </copy>
+ </target>
+
+
+ <target name="watch"
+   description="Watch source files updated, then deploy.">
+  <retry retrycount="1000000">
+   <antcall target="watch:wait-and-build"/>
+  </retry>
+ </target>
+
+ <target name="watch:wait-and-build">
+  <waitfor>
+   <not>
+    <uptodate targetfile="${dir.dist}/${product}">
+     <srcfiles dir="${dir.src}" includes="**/*"/>
+     <srcfiles dir="${dir.test}" includes="**/*"/>
+    </uptodate>
+   </not>
+  </waitfor>
+  <antcall target="build"/>
+  <touch file="${dir.dist}/${product}"/>
+  <fail/>
+ </target>
+
+
+ <target name="start"
+   description="Start tomcat.">
+  <condition property="cmd" value="startup.bat" else="startup.sh">
+   <os family="windows"/>
+  </condition>
+  <exec executable="${dir.tomcat}/bin/${cmd}"/>
+ </target>
+
+
+ <target name="stop"
+   description="Stop tomcat.">
+  <condition property="cmd" value="shutdown.bat" else="shutdown.sh">
+   <os family="windows"/>
+  </condition>
+  <exec executable="${dir.tomcat}/bin/${cmd}"/>
+ </target>
+
+
+ <condition property="npm.cmd" value="cmd" else="npm">
+  <os family="windows"/>
+ </condition>
+
+ <condition property="npm.arg" value="/c npm" else="">
+  <os family="windows"/>
+ </condition>
+
+ <condition property="is_application">
+  <equals arg1="${prodtype}" arg2="application"/>
+ </condition>
+
+</project>

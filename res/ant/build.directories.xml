@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project basedir="../..">
+
+ <property name="dir.res"  value="${basedir}/res"/>
+ <property name="dir.src"  value="${basedir}/src"/>
+ <property name="dir.test" value="${basedir}/test"/>
+ <property name="dir.docs" value="${basedir}/docs"/>
+ <property name="dir.dist" value="${basedir}/dist"/>
+ <property name="dir.work" value="${basedir}/work"/>
+
+ <property name="dir.res.ant" value="${dir.res}/ant"/><!-- here -->
+ <property name="dir.res.xsl" value="${dir.res}/xsl"/>
+ <property name="dir.res.doc" value="${dir.res}/doc"/>
+ <property name="dir.res.js"  value="${dir.res}/js"/>
+
+ <property name="dir.src.xsl"  value="${dir.src}/xsl"/>
+ <property name="dir.src.scss" value="${dir.src}/scss"/>
+ <property name="dir.src.js"   value="${dir.src}/js"/>
+
+ <property name="dir.src.xsl.lib" value="${dir.src.xsl}/lib"/>
+ <property name="dir.src.xsl.ext" value="${dir.src.xsl}/ext"/>
+
+ <property name="dir.test.unit" value="${dir.test}/unit"/>
+
+ <property name="dir.docs.test" value="${dir.docs}/test"/>
+ <property name="dir.docs.api"  value="${dir.docs}/api"/>
+
+ <property name="dir.work.dl"  value="${dir.work}/downloads"/>
+ <property name="dir.work.lib" value="${dir.work}/lib"/>
+ <property name="dir.work.bin" value="${dir.work}/bin"/>
+ <property name="dir.work.xsl" value="${dir.work}/xsl"/>
+
+
+ <target name="setup:dirs">
+  <mkdir dir="${dir.src.xsl.lib}"/>
+  <mkdir dir="${dir.src.xsl.ext}"/>
+  <mkdir dir="${dir.src.scss}"/>
+  <mkdir dir="${dir.src.js}"/>
+  <mkdir dir="${dir.test.unit}"/>
+  <mkdir dir="${dir.docs.test}"/>
+  <mkdir dir="${dir.docs.api}"/>
+  <mkdir dir="${dir.dist}"/>
+  <mkdir dir="${dir.work.dl}"/>
+  <mkdir dir="${dir.work.lib}"/>
+  <mkdir dir="${dir.work.bin}"/>
+  <mkdir dir="${dir.work.xsl}"/>
+ </target>
+
+</project>

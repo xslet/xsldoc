@@ -1,26 +1,27 @@
 {
-  "name": "xsldoc",
+  "name": "%PROJECT%",
   "version": "1.0.0",
-  "description": "xsldoc.js build environment with Node.js",
+  "description": "%PROJECT%.js build environment with Node.js",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "sass:build": "sass ../../src/scss/xsldoc.scss ../../dist/xsldoc.css",
-    "sass:watch": "sass --watch ../../src/scss/xsldoc.scss ../../dist/xsldoc.css",
-    "js:build": "browserify index.js --standalone xsldoc -o ../../dist/xsldoc.js && cd ../../dist && uglifyjs xsldoc.js --compress --mangle -o xsldoc.min.js --source-map url=xsldoc.min.js.map"
+    "sass:build": "sass ../../src/scss/%PROJECT%.scss ../../dist/%PROJECT%.css",
+    "sass:watch": "sass --watch ../../src/scss/%PROJECT%.scss ../../dist/%PROJECT%.css",
+    "js:build": "browserify index.js --standalone %PROJECT% -o ../../dist/%PROJECT%.js && cd ../../dist && uglifyjs %PROJECT%.js --compress --mangle -o %PROJECT%.min.js --source-map url=%PROJECT%.min.js.map"
   },
   "engines": {
     "node": ">=16"
   },
   "keywords": [
-    "xsldoc",
-    "doc",
+    "%PROJECT%",
     "xsl",
+    "xslt",
+    "xpath",
     "xslet"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xslet/xsldoc.git"
+    "url": "git+https://github.com/xslet/%PROJECT%.git"
   },
   "author": "Takayuki Sato",
   "license": "MIT",

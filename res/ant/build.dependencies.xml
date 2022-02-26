@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project>
+ <import file="./build.directories.xml"/>
+
+ <target name="setup:deps:base">
+  <antcall target="setup:saxon"/>
+  <antcall target="setup:tomcat"/>
+  <antcall target="setup:xsldoc"/>
+ </target>
+
+
+ <property name="dep.saxon.version"  value="11-2J"/>
+ <property name="pkg.saxon" value="SaxonHE${dep.saxon.version}"/>
+ <property name="url.saxon" value="https://sourceforge.net/projects/saxon/files/Saxon-HE/11/Java/${pkg.saxon}.zip/download"/>
+ <property name="dir.saxon" value="${dir.work.lib}/${pkg.saxon}"/>
+
+ <target name="setup:saxon">
+  <property name="zip" location="${dir.work.dl}/${pkg.saxon}.zip"/>
+  <property name="unzip" location="${dir.saxon}"/>
+  <get src="${url.saxon}" dest="${zip}"/>
+  <unzip src="${zip}" dest="${unzip}"/>
+ </target>
+
+
+ <property name="dep.tomcat.version" value="10.0.16"/>
+ <property name="pkg.tomcat" value="apache-tomcat-${dep.tomcat.version}"/>
+ <property name="url.tomcat" value="https://archive.apache.org/dist/tomcat/tomcat-10/v${dep.tomcat.version}/bin/${pkg.tomcat}.zip"/>
+ <property name="dir.tomcat" value="${dir.work.bin}/${pkg.tomcat}"/>
+ <property name="dir.deploy" value="${dir.tomcat}/webapps/${ant.project.name}"/>
+
+ <target name="setup:tomcat">
+  <property name="zip" location="${dir.work.dl}/${pkg.tomcat}.zip"/>
+  <property name="unzip" location="${dir.work.bin}"/>
+  <get src="${url.tomcat}" dest="${zip}"/>
+  <unzip src="${zip}" dest="${unzip}"/>
+  <chmod perm="ugo+rx" dir="${dir.tomcat}/bin" includes="**/*.sh"/>
+  <mkdir dir="${dir.deploy}"/>
+ </target>
+
+
+ <condition property="is_xsldoc">
+  <equals arg1="${ant.project.name}" arg2="xsldoc"/>
+ </condition>
+
+ <property name="dep.xsldoc.version" value="1.0.0"/>
+ <property name="pkg.xsldoc" value="xsldoc-${dep.xsldoc.version}"/>
+ <property name="dir.xsldoc" value="${dir.work.lib}/${pkg.xsldoc}"/>
+ <property name="url.xsldoc" value="https://github.com/xslet/xsldoc/archive/${dep.xsldoc.version}.zip"/>
+
+ <target name="setup:xsldoc" unless="is_xsldoc">
+  <property name="zip" location="${dir.work.dl}/${pkg.xsldoc}.zip"/>
+  <property name="unzip" location="${dir.xsldoc}/.."/>
+  <get src="${url.xsldoc}" dest="${zip}"/>
+  <unzip src="${zip}" dest="${unzip}"/>
+ </target>
+
+</project>

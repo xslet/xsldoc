@@ -9,6 +9,13 @@
  <xsl:strip-space elements="*" />
 
 
+ <xsl:param name="prodtype">
+  <xsl:for-each select="document('../../build.xml', /)/project">
+   <xsl:value-of select="property[@name='prodtype']/@value" />
+  </xsl:for-each>
+ </xsl:param>
+
+
  <xsl:template match="/">
   <xsl:call-template name="merge">
    <xsl:with-param name="destfile" select="'unit-test.xsl'" />
@@ -27,6 +34,26 @@
 
   <xsl:result-document href="{$destfile}">
    <xsx:stylesheet version="1.0">
+    <xsl:if test="$prodtype != 'application'">
+     <xsl:merge>
+      <xsl:merge-source for-each-source="uri-collection($srcdir)"
+        select="xsl:stylesheet/xsl:import">
+       <xsl:merge-key select="href" />
+      </xsl:merge-source>
+      <xsl:merge-source for-each-source="uri-collection($libdir)"
+        select="xsl:stylesheet/xsl:import">
+       <xsl:merge-key select="href" />
+      </xsl:merge-source>
+      <xsl:merge-source for-each-source="uri-collection($extdir)"
+        select="xsl:stylesheet/xsl:import">
+       <xsl:merge-key select="href" />
+      </xsl:merge-source>
+      <xsl:merge-action>
+       <xsl:copy-of select="current-merge-group()" />
+      </xsl:merge-action>
+     </xsl:merge>
+    </xsl:if>
+
     <xsl:merge>
      <xsl:merge-source for-each-source="uri-collection($srcdir)"
        select="xsl:stylesheet/xsl:param">
