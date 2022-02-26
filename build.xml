@@ -15,7 +15,7 @@
   <antcall target="setup:xslutil"/>
  </target>
 
- <property name="dep.xslutil.version" value="0.1.1"/>
+ <property name="dep.xslutil.version" value="1.0.1"/>
 
  <target name="setup:xslutil">
   <property name="pkg" value="xslutil-${dep.xslutil.version}"/>
