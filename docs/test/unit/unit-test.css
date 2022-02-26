@@ -94,3 +94,13 @@ div.comparison > div.code.computed::before {
 div.hide {
   display: none;
 }
+
+section.describe {
+  margin-top: 0.3rem;
+  margin-left: 1.5rem;
+}
+section.describe > div.title {
+  margin-left: -1rem;
+  font-weight: bold;
+}
+

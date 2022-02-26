@@ -7,240 +7,29 @@
  <property name="version" value="1.0"/>
  <property name="copyright" value="Copyright (C) 2019-2022 xslet project"/>
  <property name="license" value="MIT License"/>
+ <property name="prodtype" value="application"/>
 
- <property file="build.properties"/>
 
- <target name="setup"
-   description="Make directories and download modules used for build.">
-  <antcall target="setup:dirs"/>
-  <antcall target="setup:scss"/>
-  <antcall target="setup:js"/>
-  <antcall target="setup:get-deps"/>
+ <!-- Dependencies for this project -->
+ <target name="setup:deps" depends="setup:deps:base">
+  <antcall target="setup:xslutil"/>
  </target>
 
- <target name="setup:dirs">
-  <mkdir dir="${dir.src.xsl}/lib"/>
-  <mkdir dir="${dir.src.xsl}/ext"/>
-  <mkdir dir="${dir.src.scss}"/>
-  <mkdir dir="${dir.src.js}"/>
-  <mkdir dir="${dir.dist}"/>
-  <mkdir dir="${dir.test}/unit"/>
-  <mkdir dir="${dir.docs}/test"/>
-  <mkdir dir="${dir.docs}/api"/>
-  <mkdir dir="${dir.work.dl}"/>
-  <mkdir dir="${dir.work.lib}"/>
-  <mkdir dir="${dir.work.bin}"/>
-  <mkdir dir="${dir.deploy}"/>
- </target>
+ <property name="dep.xslutil.version" value="0.1.1"/>
 
- <target name="setup:scss">
-  <touch file="${dir.src.scss}/xsldoc.scss"/>
- </target>
-
- <target name="setup:js">
-  <copy todir="${dir.src.js}">
-   <fileset dir="${dir.res.js}"/>
-  </copy>
-  <exec executable="${npm.cmd}">
-   <arg line="${npm.arg}"/>
-   <arg line="install"/>
-   <arg line="--prefix ${dir.src.js}"/>
-  </exec>
- </target>
-
- <target name="setup:get-deps">
-  <antcall target="setup:get-xslutil"/>
-  <antcall target="setup:get-saxon"/>
-  <antcall target="setup:get-tomcat"/>
- </target>
-
- <target name="setup:get-xslutil">
-  <property name="zip" location="${dir.work.dl}/${pkg.xslutil}.zip"/>
-  <property name="unzip" location="${dir.xslutil}/.."/>
-  <get src="${url.xslutil.download}" dest="${zip}"/>
+ <target name="setup:xslutil">
+  <property name="pkg" value="xslutil-${dep.xslutil.version}"/>
+  <property name="dir" value="${dir.work.xsl}/${pkg}"/>
+  <property name="url" value="https://github.com/xslet/xslutil/archive/${dep.xslutil.version}.zip"/>
+  <property name="zip" location="${dir.work.dl}/${pkg}.zip"/>
+  <property name="unzip" location="${dir}/.."/>
+  <get src="${url}" dest="${zip}"/>
   <unzip src="${zip}" dest="${unzip}"/>
  </target>
 
- <target name="setup:get-saxon">
-  <property name="zip" location="${dir.work.dl}/${pkg.saxon}.zip"/>
-  <property name="unzip" location="${dir.saxon}"/>
-  <get src="${url.saxon.download}" dest="${zip}"/>
-  <unzip src="${zip}" dest="${unzip}"/>
- </target>
 
- <target name="setup:get-tomcat">
-  <property name="zip" location="${dir.work.dl}/${pkg.tomcat}.zip"/>
-  <property name="unzip" location="${dir.work.bin}"/>
-  <get src="${url.tomcat.download}" dest="${zip}"/>
-  <unzip src="${zip}" dest="${unzip}"/>
-  <chmod perm="ugo+rx" dir="${dir.tomcat}/bin" includes="**/*.sh"/>
- </target>
-
-
- <target name="build"
-   description="Execute `clean`, `merge` and `deploy` tasks.">
-  <antcall target="clean"/>
-  <antcall target="merge"/>
-  <antcall target="build:scss"/>
-  <antcall target="build:js"/>
-  <antcall target="deploy"/>
- </target>
-
-
- <target name="clean"
-   description="Clean files in `dist` directory.">
-  <delete>
-   <fileset dir="${dir.dist}"      includes="**/*"/>
-   <fileset dir="${dir.deploy}"    includes="**/*"/>
-   <fileset dir="${dir.docs}/test" includes="**/*"/>
-   <fileset dir="${dir.docs}/api"  includes="**/*"/>
-  </delete>
-  <exec executable="find" os="Mac OS X">
-   <arg line=". -name .DS_Store -delete"/>
-  </exec>
- </target>
-
-
- <target name="merge"
-   description="Merge XSL files into a distributable file.">
-  <delete>
-   <fileset dir="${dir.src.xsl}/ext" includes="**/*"/>
-  </delete>
-  <antcall target="merge:xsl-for-doc"/>
-  <copy todir="${dir.src.xsl}/ext">
-   <fileset dir="${dir.xslutil}/dist"/>
-  </copy>
-  <antcall target="merge:xsl-for-dist"/>
-  <antcall target="merge:xsl-for-test"/>
- </target>
-
- <target name="merge:xsl-for-doc">
-  <path id="extjars">
-   <fileset dir="${dir.work.lib}">
-    <include name="**/*.jar" />
-   </fileset>
-  </path>
-  <java classname="net.sf.saxon.Transform">
-   <arg line="-o:${dir.docs}" />
-   <arg line="-s:${dir.src.xsl}" />
-   <arg line="-xsl:${dir.res.xsl}/merge-for-doc.xsl" />
-   <arg line="-strip:all" />
-   <classpath refid="extjars" />
-  </java>
- </target>
-
- <target name="merge:xsl-for-dist">
-  <path id="extjars">
-   <fileset dir="${dir.work.lib}">
-    <include name="**/*.jar" />
-   </fileset>
-  </path>
-  <java classname="net.sf.saxon.Transform">
-   <arg line="-o:${dir.dist}" />
-   <arg line="-s:${dir.src.xsl}" />
-   <arg line="-xsl:${dir.res.xsl}/merge-for-dist.xsl" />
-   <arg line="-strip:all" />
-   <classpath refid="extjars" />
-  </java>
- </target>
-
- <target name="merge:xsl-for-test">
-  <path id="extjars">
-   <fileset dir="${dir.work.lib}">
-    <include name="**/*.jar" />
-   </fileset>
-  </path>
-  <java classname="net.sf.saxon.Transform">
-   <arg line="-o:${dir.test}/unit" />
-   <arg line="-s:${dir.src.xsl}" />
-   <arg line="-xsl:${dir.res.xsl}/merge-for-test.xsl" />
-   <arg line="-strip:all" />
-   <classpath refid="extjars" />
-  </java>
- </target>
-
- <target name="build:scss">
-  <property name="prefix" value="${dir.src.js}" />
-  <exec executable="${npm.cmd}">
-   <arg line="${npm.arg}" />
-   <arg line="run sass:build" />
-   <arg line="--prefix ${prefix}" />
-  </exec>
- </target>
-
- <target name="build:js">
-  <property name="prefix" value="${dir.src.js}" />
-  <exec executable="${npm.cmd}">
-   <arg line="${npm.arg}" />
-   <arg line="run js:build" />
-   <arg line="--prefix ${prefix}" />
-  </exec>
- </target>
-
-
- <target name="deploy"
-   description="Deploy distributable files and test files to Tomcat.">
-  <copy todir="${dir.docs}/test">
-   <fileset dir="${dir.test}"/>
-  </copy>
-  <copy todir="${dir.docs}/api/xsldoc">
-   <fileset dir="${dir.dist}"/>
-  </copy>
-  <copy todir="${dir.docs}/test/unit">
-   <fileset dir="${dir.res.doc}"/>
-  </copy>
-  <copy todir="${dir.deploy}">
-   <fileset dir="${dir.docs}"/>
-  </copy>
- </target>
-
-
- <target name="watch"
-   description="Watch source files updated, then deploy.">
-  <retry retrycount="1000000">
-   <antcall target="watch:wait-and-build"/>
-  </retry>
- </target>
-
- <target name="watch:wait-and-build">
-  <waitfor>
-   <not>
-    <uptodate targetfile="${dir.dist}/${product}">
-     <srcfiles dir="${dir.src}" includes="**/*"/>
-     <srcfiles dir="${dir.test}" includes="**/*"/>
-    </uptodate>
-   </not>
-  </waitfor>
-  <antcall target="build"/>
-  <touch file="${dir.dist}/${product}"/>
-  <fail/>
- </target>
-
-
- <target name="start"
-   description="Start tomcat.">
-  <condition property="cmd" value="startup.bat" else="startup.sh">
-   <os family="windows"/>
-  </condition>
-  <exec executable="${dir.tomcat}/bin/${cmd}"/>
- </target>
-
-
- <target name="stop"
-   description="Stop tomcat.">
-  <condition property="cmd" value="shutdown.bat" else="shutdown.sh">
-   <os family="windows"/>
-  </condition>
-  <exec executable="${dir.tomcat}/bin/${cmd}"/>
- </target>
-
-
- <condition property="npm.cmd" value="cmd" else="npm">
-  <os family="windows"/>
- </condition>
-
- <condition property="npm.arg" value="/c npm" else="">
-  <os family="windows"/>
- </condition>
+ <import file="res/ant/build.targets.xml"/>
+ <import file="res/ant/build.dependencies.xml"/>
+ <import file="res/ant/build.directories.xml"/>
 
 </project>
