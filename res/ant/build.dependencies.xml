@@ -10,7 +10,7 @@
  </target>
 
 
- <property name="dep.saxon.version"  value="11-1J"/>
+ <property name="dep.saxon.version"  value="11-2J"/>
  <property name="pkg.saxon" value="SaxonHE${dep.saxon.version}"/>
  <property name="url.saxon" value="https://sourceforge.net/projects/saxon/files/Saxon-HE/11/Java/${pkg.saxon}.zip/download"/>
  <property name="dir.saxon" value="${dir.work.lib}/${pkg.saxon}"/>
