@@ -139,6 +139,7 @@
       <script src="./unit-test.js"></script>
      </head>
      <body>
+      <div id="passFailBar"/>
       <h1><xsx:value-of select="@title" /></h1>
       <xsx:apply-templates select="describe|it">
        <xsx:with-param name="data_url" select="$_data_url" />
