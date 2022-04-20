@@ -90,6 +90,8 @@
      </xsl:merge>
     </xsl:if>
 
+    <xsx:strip-space elements="*" />
+
     <xsl:merge><!-- Merge `xsl:param`s -->
      <xsl:merge-source for-each-source="uri-collection($srcdir)"
       select="xsl:stylesheet/xsl:param">
