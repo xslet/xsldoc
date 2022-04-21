@@ -43,7 +43,7 @@
   <equals arg1="${ant.project.name}" arg2="xsldoc"/>
  </condition>
 
- <property name="dep.xsldoc.version" value="1.0.0"/>
+ <property name="dep.xsldoc.version" value="1.0.1"/>
  <property name="pkg.xsldoc" value="xsldoc-${dep.xsldoc.version}"/>
  <property name="dir.xsldoc" value="${dir.work.lib}/${pkg.xsldoc}"/>
  <property name="url.xsldoc" value="https://github.com/xslet/xsldoc/archive/${dep.xsldoc.version}.zip"/>
