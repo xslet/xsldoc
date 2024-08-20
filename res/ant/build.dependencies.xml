@@ -10,9 +10,9 @@
  </target>
 
 
- <property name="dep.saxon.version"  value="11-2J"/>
+ <property name="dep.saxon.version"  value="12-5J"/>
  <property name="pkg.saxon" value="SaxonHE${dep.saxon.version}"/>
- <property name="url.saxon" value="https://sourceforge.net/projects/saxon/files/Saxon-HE/11/Java/${pkg.saxon}.zip/download"/>
+ <property name="url.saxon" value="https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE12-5/SaxonHE12-5J.zip"/>
  <property name="dir.saxon" value="${dir.work.lib}/${pkg.saxon}"/>
 
  <target name="setup:saxon">
@@ -23,9 +23,9 @@
  </target>
 
 
- <property name="dep.tomcat.version" value="10.0.16"/>
+ <property name="dep.tomcat.version" value="10.1.28"/>
  <property name="pkg.tomcat" value="apache-tomcat-${dep.tomcat.version}"/>
- <property name="url.tomcat" value="https://archive.apache.org/dist/tomcat/tomcat-10/v${dep.tomcat.version}/bin/${pkg.tomcat}.zip"/>
+ <property name="url.tomcat" value="https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.28/bin/apache-tomcat-10.1.28.zip"/>
  <property name="dir.tomcat" value="${dir.work.bin}/${pkg.tomcat}"/>
  <property name="dir.deploy" value="${dir.tomcat}/webapps/${ant.project.name}"/>
 
@@ -43,7 +43,7 @@
   <equals arg1="${ant.project.name}" arg2="xsldoc"/>
  </condition>
 
- <property name="dep.xsldoc.version" value="1.0.1"/>
+ <property name="dep.xsldoc.version" value="1.0.2"/>
  <property name="pkg.xsldoc" value="xsldoc-${dep.xsldoc.version}"/>
  <property name="dir.xsldoc" value="${dir.work.lib}/${pkg.xsldoc}"/>
  <property name="url.xsldoc" value="https://github.com/xslet/xsldoc/archive/${dep.xsldoc.version}.zip"/>

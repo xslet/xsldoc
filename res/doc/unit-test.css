@@ -78,7 +78,7 @@ div.comparison {
   margin-top: 0.3rem;
   margin-left: 2rem;
   padding: 0.6rem;
-  font-family: monospace;
+  font-family: Courier, monospace;
   font-size: 0.9rem;
   color: #777;
   border: solid 1px #ccc;
