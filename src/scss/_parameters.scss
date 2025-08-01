@@ -1,10 +1,12 @@
+@use "./config";
+
 div.parameter-list {
   padding-left: 0.3rem;
   padding-bottom: 0.5rem;
 
   & > div.parameter-item {
     & > div.parameter-name {
-      color: $parameter-name-color;
+      color: config.$parameter-name-color;
     }
 
     & > div.parameter-description {

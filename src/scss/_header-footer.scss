@@ -1,9 +1,11 @@
+@use "./config";
+
 header {
-  border-bottom: solid 1px $header-footer-border-color;
+  border-bottom: solid 1px config.$header-footer-border-color;
 }
 
 footer {
-  border-top: solid 1px $header-footer-border-color;
+  border-top: solid 1px config.$header-footer-border-color;
 }
 
 div.system-props {
@@ -11,7 +13,7 @@ div.system-props {
 
   & > div.system-props-title {
     flex: auto;
-    color: $system-props-title-color;
+    color: config.$system-props-title-color;
     margin-right: 0.5rem;
     text-align: right;
   }
@@ -24,7 +26,7 @@ div.system-props {
     padding-right: 0.5rem;
 
     & > span.system-props-item-name {
-      color: $system-props-name-color;
+      color: config.$system-props-name-color;
     }
     & > span.system-props-item-name::after {
       content: '=';

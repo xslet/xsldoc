@@ -1,10 +1,12 @@
+@use "./config";
+
 div.match-template-list {
   padding-left: 0.3rem;
   padding-bottom: 0.5rem;
 
   & > div.match-template-item {
     & > div.match-template-name {
-      color: $match-template-name-color;
+      color: config.$match-template-name-color;
     }
 
     & > div.match-template-description {
@@ -16,7 +18,7 @@ div.match-template-list {
       padding-top: 0.3rem;
 
       & > div.match-template-param-title {
-        color: $match-template-param-title-color;
+        color: config.$match-template-param-title-color;
       }
       & > div.match-template-param-title::after {
         content: ':';
@@ -25,7 +27,7 @@ div.match-template-list {
         padding-left: 1rem;
 
         & > span.match-template-param-name {
-          color: $match-template-param-name-color;
+          color: config.$match-template-param-name-color;
         }
         & > span.match-template-param-name::after {
           content: " - ";

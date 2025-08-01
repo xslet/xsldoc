@@ -1,11 +1,10 @@
 @charset "utf-8";
 
-@import "config";
-@import "main";
-@import "header-footer";
-@import "importings";
-@import "includings";
-@import "namespaces";
-@import "parameters";
-@import "match-templates";
-@import "named-templates";
+@use "./main";
+@use "./header-footer";
+@use "./importings";
+@use "./includings";
+@use "./namespaces";
+@use "./parameters";
+@use "./match-templates";
+@use "./named-templates";

@@ -1,10 +1,12 @@
+@use "./config";
+
 div.namespace-list {
   padding-left: 0.3rem;
   padding-bottom: 0.5rem;
 
   & > div.namespace-item {
     & > span.namespace-prefix {
-      color: $namespace-prefix-color;
+      color: config.$namespace-prefix-color;
     }
   }
 }
