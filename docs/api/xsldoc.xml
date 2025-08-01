@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="application/xml" href="xsldoc/xsldoc.xsl"?><!-- xsldoc.xsl 1.0 Copyright (C) 2019-2022 xslet project MIT License --><!--** xsldoc.xsl ver1.0 - API Document
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="application/xml" href="xsldoc/xsldoc.xsl"?><!-- xsldoc.xsl 1.0 Copyright (C) 2019-2025 xslet project MIT License --><!--** xsldoc.xsl ver1.0 - API Document
 **
  xsldoc is a XSLT applet to print an API document of a XSL file on Web browsers. 
 
@@ -8,7 +8,7 @@
 
  This program is written in XSLT 1.0.
 
-** Copyright (C) 2019-2022 xslet project
+** Copyright (C) 2019-2025 xslet project
 ** MIT License
 --><xsl:stylesheet xmlns:ut="https://github.com/xslet/2020/xslutil" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:strip-space elements="*"/><xsl:param name="_xsl_url"><xsl:call-template name="ut:get_xsl_url"/></xsl:param><xsl:param name="_xsl_dir"><xsl:call-template name="ut:get_dir_from_url"><xsl:with-param name="url" select="$_xsl_url"/></xsl:call-template></xsl:param><!--** The prefix of a design comment. (='**') --><xsl:param name="DESIGN_COMMENT_PREFIX">**</xsl:param><xsl:param name="_eol" select="'&#xA;'"/><xsl:param name="_prefix_len" select="string-length($DESIGN_COMMENT_PREFIX)"/><!--**
   The top level element of a XML stylesheet.

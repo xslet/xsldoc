@@ -86,7 +86,7 @@
     <include name="**/*.jar" />
    </fileset>
   </path>
-  <java classname="net.sf.saxon.Transform">
+  <java classname="net.sf.saxon.Transform" failonerror="true">
    <arg line="-o:${dir.docs}" />
    <arg line="-s:${dir.src.xsl}" />
    <arg line="-xsl:${dir.res.xsl}/merge-for-doc.xsl" />
@@ -101,7 +101,7 @@
     <include name="**/*.jar" />
    </fileset>
   </path>
-  <java classname="net.sf.saxon.Transform">
+  <java classname="net.sf.saxon.Transform" failonerror="true">
    <arg line="-o:${dir.dist}" />
    <arg line="-s:${dir.src.xsl}" />
    <arg line="-xsl:${dir.res.xsl}/merge-for-dist.xsl" />
@@ -116,7 +116,7 @@
     <include name="**/*.jar" />
    </fileset>
   </path>
-  <java classname="net.sf.saxon.Transform">
+  <java classname="net.sf.saxon.Transform" failonerror="true">
    <arg line="-o:${dir.test.unit}" />
    <arg line="-s:${dir.src.xsl}" />
    <arg line="-xsl:${dir.res.xsl}/merge-for-test.xsl" />
@@ -128,7 +128,7 @@
 
  <target name="build:scss" if="is_application">
   <property name="prefix" value="${dir.src.js}" />
-  <exec executable="${npm.cmd}">
+  <exec executable="${npm.cmd}" failonerror="true">
    <arg line="${npm.arg}" />
    <arg line="run sass:build" />
    <arg line="--prefix ${prefix}" />
@@ -138,7 +138,7 @@
 
  <target name="build:js" if="is_application">
   <property name="prefix" value="${dir.src.js}" />
-  <exec executable="${npm.cmd}">
+  <exec executable="${npm.cmd}" failonerror="true">
    <arg line="${npm.arg}" />
    <arg line="run js:build" />
    <arg line="--prefix ${prefix}" />

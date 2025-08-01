@@ -1,23 +1,23 @@
-$font-family: arial sans-serif;
-$font-color: #333;
-$font-size: 16px;
+$font-family: arial sans-serif !default;
+$font-color: #333 !default;
+$font-size: 16px !default;
 
-$page-title-color: #38c;
-$section-title-bgcolor: #adf;
-$header-footer-border-color: #38c;
+$page-title-color: #38c !default;
+$section-title-bgcolor: #adf !default;
+$header-footer-border-color: #38c !default;
 
-$system-props-title-color: #abd;
-$system-props-name-color: #38c;
+$system-props-title-color: #abd !default;
+$system-props-name-color: #38c !default;
 
-$namespace-prefix-color: #38c;
-$importing-file-color: #38c;
-$including-file-color: #38c;
-$parameter-name-color: #38c;
+$namespace-prefix-color: #38c !default;
+$importing-file-color: #38c !default;
+$including-file-color: #38c !default;
+$parameter-name-color: #38c !default;
 
-$match-template-name-color: #38c;
-$match-template-param-title-color: #abd;
-$match-template-param-name-color: #38c;
+$match-template-name-color: #38c !default;
+$match-template-param-title-color: #abd !default;
+$match-template-param-name-color: #38c !default;
 
-$named-template-name-color: #38c;
-$named-template-param-title-color: #abd;
-$named-template-param-name-color: #38c; 
+$named-template-name-color: #38c !default;
+$named-template-param-title-color: #abd !default;
+$named-template-param-name-color: #38c !default; 

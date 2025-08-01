@@ -10,9 +10,9 @@
  </target>
 
 
- <property name="dep.saxon.version"  value="12-5J"/>
+ <property name="dep.saxon.version"  value="12-8J"/>
  <property name="pkg.saxon" value="SaxonHE${dep.saxon.version}"/>
- <property name="url.saxon" value="https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE12-5/SaxonHE12-5J.zip"/>
+ <property name="url.saxon" value="https://github.com/Saxonica/Saxon-HE/releases/download/SaxonHE-12-8/SaxonHE12-8J.zip"/>
  <property name="dir.saxon" value="${dir.work.lib}/${pkg.saxon}"/>
 
  <target name="setup:saxon">
@@ -23,9 +23,9 @@
  </target>
 
 
- <property name="dep.tomcat.version" value="10.1.28"/>
+ <property name="dep.tomcat.version" value="11.0.9"/>
  <property name="pkg.tomcat" value="apache-tomcat-${dep.tomcat.version}"/>
- <property name="url.tomcat" value="https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.28/bin/apache-tomcat-10.1.28.zip"/>
+ <property name="url.tomcat" value="https://dlcdn.apache.org/tomcat/tomcat-11/v11.0.9/bin/apache-tomcat-11.0.9.zip"/>
  <property name="dir.tomcat" value="${dir.work.bin}/${pkg.tomcat}"/>
  <property name="dir.deploy" value="${dir.tomcat}/webapps/${ant.project.name}"/>
 
